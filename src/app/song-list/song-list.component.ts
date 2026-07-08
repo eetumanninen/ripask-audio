@@ -1,14 +1,14 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {SubsonicService} from "../subsonic/subsonic.service";
-import {PlayerService} from "../player/player.service";
-import {Song} from "../subsonic/subsonic.model";
-import {QueueService} from "../queue/queue.service";
-import {shuffleArr} from "../helpers";
+import { Component, Input, OnInit } from "@angular/core";
+import { SubsonicService } from "../subsonic/subsonic.service";
+import { PlayerService } from "../player/player.service";
+import { Song } from "../subsonic/subsonic.model";
+import { QueueService } from "../queue/queue.service";
+import { shuffleArr } from "../helpers";
 
 @Component({
   selector: "app-song-list",
   templateUrl: "./song-list.component.html",
-  styleUrls: ["./song-list.component.scss"]
+  styleUrls: ["./song-list.component.scss"],
 })
 export class SongListComponent implements OnInit {
   @Input() songs: Song[] = [];
@@ -19,9 +19,8 @@ export class SongListComponent implements OnInit {
   constructor(
     private subsonicService: SubsonicService,
     public playerService: PlayerService,
-    private queueService: QueueService
-  ) {
-  }
+    private queueService: QueueService,
+  ) {}
 
   ngOnInit(): void {
     if (!this.hideAlbum) {
@@ -34,7 +33,10 @@ export class SongListComponent implements OnInit {
       this.playerService.playSongInQueue(song);
     } else {
       if (this.playerService.getShuffle()) {
-        this.queueService.setQueue([song, ...shuffleArr(this.songs.filter(s => s.id !== song.id))])
+        this.queueService.setQueue([
+          song,
+          ...shuffleArr(this.songs.filter((s) => s.id !== song.id)),
+        ]);
       } else {
         this.queueService.setQueue([...this.songs]);
       }

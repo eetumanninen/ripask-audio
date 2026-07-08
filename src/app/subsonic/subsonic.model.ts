@@ -1,9 +1,9 @@
-import {secondsToString} from "../helpers";
+import { secondsToString } from "../helpers";
 
 class ApiBaseResponse {
   status = "";
   version = "";
-  error?: ApiSubsonicError
+  error?: ApiSubsonicError;
 }
 
 class ApiSubsonicError {
@@ -62,13 +62,13 @@ export class Song {
 export class ApiGetRandomSongs extends ApiBaseResponse {
   randomSongs: {
     song: ApiSong[];
-  } = {song: []};
+  } = { song: [] };
 }
 
 export class ApiGetAlbumListBy extends ApiBaseResponse {
   albumList2: {
     album: ApiAlbum[];
-  } = {album: []};
+  } = { album: [] };
 }
 
 export class ApiGetAlbum extends ApiBaseResponse {
@@ -79,7 +79,7 @@ export class ApiAlbum {
   id = "";
   parent = "";
   title = "";
-  album = "";
+  name = "";
   artist = "";
   artistId = "";
   isDir = false;
@@ -92,7 +92,7 @@ export class ApiAlbum {
 
 export class Album {
   id = "";
-  album = "";
+  name = "";
   artist = "";
   artistId = "";
   year = 0;
@@ -101,7 +101,7 @@ export class Album {
 
   constructor(album: ApiAlbum, coverArtUrl: string) {
     this.id = album.id;
-    this.album = album.album;
+    this.name = album.name;
     this.artist = album.artist;
     this.artistId = album.artistId;
     this.year = album.year;
@@ -117,7 +117,7 @@ export class ApiAlbumSongs extends ApiAlbum {
 export class ApiGetGenres extends ApiBaseResponse {
   genres: {
     genre: ApiGenre[];
-  } = {genre: []};
+  } = { genre: [] };
 }
 
 export class ApiGenre {
@@ -128,11 +128,13 @@ export class ApiGenre {
 
 export class Genre {
   value = "";
+  encodedValue = "";
   coverArtUrls: string[];
 
   constructor(genre: ApiGenre, albums: Album[]) {
     this.value = genre.value;
-    this.coverArtUrls = albums.map(v => v.coverArtUrl);
+    this.encodedValue = encodeURIComponent(genre.value);
+    this.coverArtUrls = albums.map((v) => v.coverArtUrl);
     if (this.coverArtUrls.length === 1) {
       this.coverArtUrls.push(this.coverArtUrls[0]);
     }
@@ -178,7 +180,7 @@ export class ApiGetArtistList extends ApiBaseResponse {
   ignoredArticles = "";
   artists: {
     index: ApiGetArtistListIndexItem[];
-  } = {index: []};
+  } = { index: [] };
 }
 
 export class ApiGetArtistListIndexItem {
@@ -199,7 +201,7 @@ export class ArtistList {
 }
 
 export class ApiGetMusicDirectory<A> extends ApiBaseResponse {
-  directory: ApiMusicDirectory<A> = {id: "", name: "", child: []}
+  directory: ApiMusicDirectory<A> = { id: "", name: "", child: [] };
 }
 
 export class ApiMusicDirectory<A> {

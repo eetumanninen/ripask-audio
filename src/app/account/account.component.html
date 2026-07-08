@@ -4,7 +4,7 @@
     <div class="col">
       <label class="d-block" for="username">Username</label>
       <div>
-        <input [(ngModel)]="username" id="username" type="text">
+        <input [(ngModel)]="username" id="username" type="text" />
       </div>
     </div>
   </div>
@@ -12,7 +12,7 @@
     <div class="col">
       <label class="d-block" for="password">Password</label>
       <div>
-        <input [(ngModel)]="password" id="password" type="password">
+        <input [(ngModel)]="password" id="password" type="password" />
       </div>
     </div>
   </div>
@@ -20,9 +20,11 @@
     <div class="col">
       <label class="d-block" for="server">Server</label>
       <div>
-        <input [(ngModel)]="server" id="server" type="text">
+        <input [(ngModel)]="server" id="server" type="text" />
       </div>
     </div>
   </div>
-  <button (click)="save()" color="primary" mat-raised-button type="button">Save</button>
+  <button (click)="save()" color="primary" mat-raised-button type="button">
+    Save
+  </button>
 </div>

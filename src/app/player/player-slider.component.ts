@@ -12,12 +12,12 @@ import {
   OnDestroy,
   Output,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from "@angular/core";
-import {normalizePassiveListenerOptions} from "@angular/cdk/platform";
-import {DOCUMENT} from "@angular/common";
+import { normalizePassiveListenerOptions } from "@angular/cdk/platform";
+import { DOCUMENT } from "@angular/common";
 
-const activeEventOptions = normalizePassiveListenerOptions({passive: false});
+const activeEventOptions = normalizePassiveListenerOptions({ passive: false });
 
 /**
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
@@ -42,7 +42,8 @@ export class PlayerSliderComponent implements OnDestroy {
   step = 0.0001;
   @Input() disabled = false;
   /** Event emitted when the slider thumb moves. */
-  @Output() readonly sliderChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() readonly sliderChange: EventEmitter<number> =
+    new EventEmitter<number>();
   /**
    * Whether the thumb is sliding.
    * Used to determine if there should be a transition for the thumb and fill track.
@@ -59,16 +60,26 @@ export class PlayerSliderComponent implements OnDestroy {
   /** Keeps track of the last pointer event that was captured by the slider. */
   private _lastPointerEvent: MouseEvent | TouchEvent | null = null;
 
-  constructor(private _elementRef: ElementRef,
-              private _changeDetectorRef: ChangeDetectorRef,
-              private _ngZone: NgZone,
-              @Inject(DOCUMENT) _document: Document) {
+  constructor(
+    private _elementRef: ElementRef,
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _ngZone: NgZone,
+    @Inject(DOCUMENT) _document: Document,
+  ) {
     this._document = _document;
 
     _ngZone.runOutsideAngular(() => {
       const element = _elementRef.nativeElement;
-      element.addEventListener("mousedown", this._pointerDown, activeEventOptions);
-      element.addEventListener("touchstart", this._pointerDown, activeEventOptions);
+      element.addEventListener(
+        "mousedown",
+        this._pointerDown,
+        activeEventOptions,
+      );
+      element.addEventListener(
+        "touchstart",
+        this._pointerDown,
+        activeEventOptions,
+      );
     });
   }
 
@@ -133,7 +144,7 @@ export class PlayerSliderComponent implements OnDestroy {
   _getTrackBackgroundStyles(): { [key: string]: string } {
     return {
       // scale3d avoids some rendering issues in Chrome. See #12071.
-      transform: `translateX(0) scale3d(${1 - this.percent}, 1, 1)`
+      transform: `translateX(0) scale3d(${1 - this.percent}, 1, 1)`,
     };
   }
 
@@ -141,14 +152,22 @@ export class PlayerSliderComponent implements OnDestroy {
   _getTrackFillStyles(): { [key: string]: string } {
     return {
       // scale3d avoids some rendering issues in Chrome. See #12071.
-      transform: `translateX(0) scale3d(${this.percent}, 1, 1)`
+      transform: `translateX(0) scale3d(${this.percent}, 1, 1)`,
     };
   }
 
   ngOnDestroy(): void {
     const element = this._elementRef.nativeElement;
-    element.removeEventListener("mousedown", this._pointerDown, activeEventOptions);
-    element.removeEventListener("touchstart", this._pointerDown, activeEventOptions);
+    element.removeEventListener(
+      "mousedown",
+      this._pointerDown,
+      activeEventOptions,
+    );
+    element.removeEventListener(
+      "touchstart",
+      this._pointerDown,
+      activeEventOptions,
+    );
     this._lastPointerEvent = null;
     this._removeGlobalEvents();
   }
@@ -157,7 +176,11 @@ export class PlayerSliderComponent implements OnDestroy {
   private _pointerDown = (event: TouchEvent | MouseEvent): void => {
     // Don't do anything if the slider is disabled or the
     // user is using anything other than the main mouse button.
-    if (this.disabled || this._isSliding || (!isTouchEvent(event) && event.button !== 0)) {
+    if (
+      this.disabled ||
+      this._isSliding ||
+      (!isTouchEvent(event) && event.button !== 0)
+    ) {
       return;
     }
 
@@ -179,7 +202,7 @@ export class PlayerSliderComponent implements OnDestroy {
         this._emitInputEvent();
       }
     });
-  }
+  };
 
   /**
    * Called when the user has moved their pointer after
@@ -198,7 +221,7 @@ export class PlayerSliderComponent implements OnDestroy {
         this._emitInputEvent();
       }
     }
-  }
+  };
 
   /** Called when the user has lifted their pointer. Bound on the document level. */
   private _pointerUp = (event: TouchEvent | MouseEvent): void => {
@@ -209,7 +232,7 @@ export class PlayerSliderComponent implements OnDestroy {
 
       this._valueOnSlideStart = this._lastPointerEvent = null;
     }
-  }
+  };
 
   /** Called when the window has lost focus. */
   private _windowBlur = (): void => {
@@ -218,7 +241,7 @@ export class PlayerSliderComponent implements OnDestroy {
     if (this._lastPointerEvent) {
       this._pointerUp(this._lastPointerEvent);
     }
-  }
+  };
 
   /** Use defaultView of injected document if available or fallback to global window reference */
   private _getWindow(): Window {
@@ -237,11 +260,23 @@ export class PlayerSliderComponent implements OnDestroy {
     const isTouch = isTouchEvent(triggerEvent);
     const moveEventName = isTouch ? "touchmove" : "mousemove";
     const endEventName = isTouch ? "touchend" : "mouseup";
-    document.addEventListener(moveEventName, this._pointerMove, activeEventOptions);
-    document.addEventListener(endEventName, this._pointerUp, activeEventOptions);
+    document.addEventListener(
+      moveEventName,
+      this._pointerMove,
+      activeEventOptions,
+    );
+    document.addEventListener(
+      endEventName,
+      this._pointerUp,
+      activeEventOptions,
+    );
 
     if (isTouch) {
-      document.addEventListener("touchcancel", this._pointerUp, activeEventOptions);
+      document.addEventListener(
+        "touchcancel",
+        this._pointerUp,
+        activeEventOptions,
+      );
     }
 
     const window = this._getWindow();
@@ -254,11 +289,31 @@ export class PlayerSliderComponent implements OnDestroy {
   /** Removes any global event listeners that we may have added. */
   private _removeGlobalEvents(): void {
     const document = this._document;
-    document.removeEventListener("mousemove", this._pointerMove, activeEventOptions);
-    document.removeEventListener("mouseup", this._pointerUp, activeEventOptions);
-    document.removeEventListener("touchmove", this._pointerMove, activeEventOptions);
-    document.removeEventListener("touchend", this._pointerUp, activeEventOptions);
-    document.removeEventListener("touchcancel", this._pointerUp, activeEventOptions);
+    document.removeEventListener(
+      "mousemove",
+      this._pointerMove,
+      activeEventOptions,
+    );
+    document.removeEventListener(
+      "mouseup",
+      this._pointerUp,
+      activeEventOptions,
+    );
+    document.removeEventListener(
+      "touchmove",
+      this._pointerMove,
+      activeEventOptions,
+    );
+    document.removeEventListener(
+      "touchend",
+      this._pointerUp,
+      activeEventOptions,
+    );
+    document.removeEventListener(
+      "touchcancel",
+      this._pointerUp,
+      activeEventOptions,
+    );
 
     const window = this._getWindow();
 
@@ -268,7 +323,7 @@ export class PlayerSliderComponent implements OnDestroy {
   }
 
   /** Calculate the new value from the new physical location. The value will always be snapped. */
-  private _updateValueFromPosition(pos: { x: number, y: number }): void {
+  private _updateValueFromPosition(pos: { x: number; y: number }): void {
     if (!this._sliderDimensions) {
       return;
     }
@@ -293,7 +348,8 @@ export class PlayerSliderComponent implements OnDestroy {
 
       // This calculation finds the closest step by finding the closest
       // whole number divisible by the step relative to the min.
-      const closestValue = Math.round((exactValue - this.min) / this.step) * this.step + this.min;
+      const closestValue =
+        Math.round((exactValue - this.min) / this.step) * this.step + this.min;
 
       // The value needs to snap to the min and max.
       this.value = this._clamp(closestValue, this.min, this.max);
@@ -326,7 +382,9 @@ export class PlayerSliderComponent implements OnDestroy {
    * take up.
    */
   private _getSliderDimensions(): DOMRect | null {
-    return this._sliderWrapper ? this._sliderWrapper.nativeElement.getBoundingClientRect() : null;
+    return this._sliderWrapper
+      ? this._sliderWrapper.nativeElement.getBoundingClientRect()
+      : null;
   }
 
   /**
@@ -347,8 +405,13 @@ function isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
 }
 
 /** Gets the coordinates of a touch or mouse event relative to the viewport. */
-function getPointerPositionOnPage(event: MouseEvent | TouchEvent): { x: number, y: number } {
+function getPointerPositionOnPage(event: MouseEvent | TouchEvent): {
+  x: number;
+  y: number;
+} {
   // `touches` will be empty for start/end events, so we have to fall back to `changedTouches`.
-  const point = isTouchEvent(event) ? (event.touches[0] || event.changedTouches[0]) : event;
-  return {x: point.clientX, y: point.clientY};
+  const point = isTouchEvent(event)
+    ? event.touches[0] || event.changedTouches[0]
+    : event;
+  return { x: point.clientX, y: point.clientY };
 }

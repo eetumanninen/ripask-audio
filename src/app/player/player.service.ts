@@ -1,18 +1,18 @@
-import {Injectable} from "@angular/core";
-import {SubsonicService} from "../subsonic/subsonic.service";
-import {QueueService} from "../queue/queue.service";
-import {Title} from "@angular/platform-browser";
-import {Song} from "../subsonic/subsonic.model";
-import {shuffleArr} from "../helpers";
+import { Injectable } from "@angular/core";
+import { SubsonicService } from "../subsonic/subsonic.service";
+import { QueueService } from "../queue/queue.service";
+import { Title } from "@angular/platform-browser";
+import { Song } from "../subsonic/subsonic.model";
+import { shuffleArr } from "../helpers";
 
 export enum Repeat {
   None = "0",
   All = "1",
-  One = "2"
+  One = "2",
 }
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class PlayerService {
   currentSong: Song | null = null;
@@ -24,10 +24,11 @@ export class PlayerService {
   private repeat = Repeat.None;
   private volume = 0.5;
 
-  constructor(private subsonicService: SubsonicService,
-              private queueService: QueueService,
-              private titleService: Title) {
-  }
+  constructor(
+    private subsonicService: SubsonicService,
+    private queueService: QueueService,
+    private titleService: Title,
+  ) {}
 
   get playerVolume(): number {
     return this._player.volume;
@@ -35,7 +36,7 @@ export class PlayerService {
 
   set playerVolume(v: number) {
     this._player.volume = v;
-    localStorage.setItem("volume", v.toString())
+    localStorage.setItem("volume", v.toString());
   }
 
   get paused(): boolean {
@@ -53,25 +54,31 @@ export class PlayerService {
         this.volume = temp;
       }
     }
-    this.shuffle = (localStorage.getItem("shuffle") === "true") || this.shuffle;
+    this.shuffle = localStorage.getItem("shuffle") === "true" || this.shuffle;
     this.repeat = this.initRepeat();
     this._player.volume = this.volume;
     this._player.ontimeupdate = (): void => {
       this.currentProgress = this._player.currentTime / this._player.duration;
       if (this._player.currentTime > this.previousPlayerTime) {
-        this.currentSongTimePlayed += this._player.currentTime - this.previousPlayerTime;
+        this.currentSongTimePlayed +=
+          this._player.currentTime - this.previousPlayerTime;
       }
       this.previousPlayerTime = this._player.currentTime;
-    }
+    };
   }
 
   initRepeat(): Repeat {
     const repeat = localStorage.getItem("repeat") || this.repeat;
-    return (Object.values(Repeat) as string[]).includes(repeat) ? repeat as Repeat : this.repeat;
+    return (Object.values(Repeat) as string[]).includes(repeat)
+      ? (repeat as Repeat)
+      : this.repeat;
   }
 
   nextSong = (): void => {
-    const song = this.repeat === Repeat.One ? this.currentSong : this.queueService.getNextSongFromQueue();
+    const song =
+      this.repeat === Repeat.One
+        ? this.currentSong
+        : this.queueService.getNextSongFromQueue();
     if (song) {
       this.playSong(song);
     } else if (this.repeat === Repeat.All) {
@@ -79,10 +86,10 @@ export class PlayerService {
       this.playSong(this.queueService.queue[0]);
     } else {
       this._player.pause();
-      this._player.currentTime = (this._player.duration - 0.1);
+      this._player.currentTime = this._player.duration - 0.1;
       this.doScrobble();
     }
-  }
+  };
 
   previousSong(): void {
     const song = this.queueService.getPrevSongFromQueue();
@@ -98,13 +105,13 @@ export class PlayerService {
   playSong(song: Song): void {
     this.doScrobble();
     this.currentSong = song;
-    this.titleService.setTitle(`${song.title} - RipaskAudio`)
+    this.titleService.setTitle(`${song.title} - RipaskAudio`);
     this._player.src = song.songUrl;
     this._player.play().then();
   }
 
   playSongInQueue(song: Song): void {
-    const index = this.queueService.queue.findIndex(s => s.id === song.id);
+    const index = this.queueService.queue.findIndex((s) => s.id === song.id);
     if (index >= 0 && index !== this.queueService.queueIndex) {
       this.queueService.queueIndex = index;
       this.playSong(song);
@@ -112,12 +119,16 @@ export class PlayerService {
   }
 
   playSongs(songs: Song[]): void {
-    const firstSong = this.queueService.setQueue(this.shuffle ? shuffleArr(songs) : songs);
+    const firstSong = this.queueService.setQueue(
+      this.shuffle ? shuffleArr(songs) : songs,
+    );
     this.playSong(firstSong);
   }
 
   playRandomSongs(genre = ""): void {
-    this.subsonicService.getRandomSongs(genre).subscribe(res => this.playSongs(res));
+    this.subsonicService
+      .getRandomSongs(genre)
+      .subscribe((res) => this.playSongs(res));
   }
 
   togglePaused(): void {
@@ -133,7 +144,7 @@ export class PlayerService {
     if (this.shuffle) {
       this.queueService.shuffleQueue();
     }
-    localStorage.setItem("shuffle", this.shuffle.toString())
+    localStorage.setItem("shuffle", this.shuffle.toString());
   }
 
   getRepeat(): Repeat {
@@ -164,18 +175,23 @@ export class PlayerService {
   }
 
   playAlbum(id: string): void {
-    this.subsonicService.getAlbum(id).subscribe(res => {
+    this.subsonicService.getAlbum(id).subscribe((res) => {
       const songs = this.subsonicService.getAlbumAndSongs(res).songs;
       this.playSongs(songs);
     });
   }
 
   playArtist(id: string): void {
-    this.subsonicService.getSongsByArtist(id).subscribe(res => this.playSongs(res));
+    this.subsonicService
+      .getSongsByArtist(id)
+      .subscribe((res) => this.playSongs(res));
   }
 
   private doScrobble(): void {
-    if (this.currentSong && this.currentSongTimePlayed > (this.currentSong.duration / 1.3)) {
+    if (
+      this.currentSong &&
+      this.currentSongTimePlayed > this.currentSong.duration / 1.3
+    ) {
       this.subsonicService.scrobble(this.currentSong).subscribe();
     }
     this.currentSongTimePlayed = 0;

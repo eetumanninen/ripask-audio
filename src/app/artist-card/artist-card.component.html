@@ -4,8 +4,16 @@
       <div class="artist">
         <div [routerLink]="'/artist/' + artist.id" class="artist-container">
           <ng-container *ngFor="let coverArt of artist.coverArtUrls">
-            <img [src]="coverArt" [title]="artist.name" alt="" class="img-responsive" crossorigin="anonymous"
-                 height="300" loading="lazy" width="300">
+            <img
+              [src]="coverArt"
+              [title]="artist.name"
+              alt=""
+              class="img-responsive"
+              crossorigin="anonymous"
+              height="300"
+              loading="lazy"
+              width="300"
+            />
           </ng-container>
         </div>
         <div (click)="playArtist(artist)" class="album-overlay clickable">
@@ -14,7 +22,7 @@
       </div>
     </div>
     <div class="card-body">
-      <div [title]="artist.name" class="title">{{artist.name}}</div>
+      <div [title]="artist.name" class="title">{{ artist.name }}</div>
     </div>
   </ng-container>
 </div>

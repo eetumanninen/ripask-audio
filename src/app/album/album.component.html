@@ -1,16 +1,26 @@
 <div class="container">
   <div class="row">
-    <div (click)="playSongs()" class="col-12 col-sm-3 gx-sm-4 g-0 clickable album-img-container">
-      <img [src]="album?.coverArtUrl" [title]="album?.album" alt="" class="album-img" crossorigin="anonymous"
-           height="300" width="300">
+    <div
+      (click)="playSongs()"
+      class="col-12 col-sm-3 gx-sm-4 g-0 clickable album-img-container"
+    >
+      <img
+        [src]="album?.coverArtUrl"
+        [title]="album?.name"
+        alt=""
+        class="album-img"
+        crossorigin="anonymous"
+        height="300"
+        width="300"
+      />
     </div>
     <div class="col-12 col-sm-5 pl-4 pb-3">
-      <h3 class="album-title">{{album?.album}}</h3>
+      <h3 class="album-title">{{ album?.name }}</h3>
       <div class="album-info">
-        <div>{{album?.artist}}</div>
-        <div>{{album?.year}}</div>
-        <div>{{duration}}</div>
-        <div>{{songCount}} songs</div>
+        <div>{{ album?.artist }}</div>
+        <div>{{ album?.year }}</div>
+        <div>{{ duration }}</div>
+        <div>{{ songCount }} songs</div>
       </div>
     </div>
   </div>
