@@ -34,13 +34,25 @@
       </div>
     </div>
     <div class="controls-middle">
-      <button (click)="playRandomSongs()" mat-icon-button>
+      <button
+        title="Play random songs"
+        (click)="playRandomSongs()"
+        mat-icon-button
+      >
         <mat-icon>music_note</mat-icon>
       </button>
-      <button (click)="playerService.toggleShuffle()" mat-icon-button>
+      <button
+        title="Toggle shuffle"
+        (click)="playerService.toggleShuffle()"
+        mat-icon-button
+      >
         <mat-icon [class.highlight]="shuffle">shuffle</mat-icon>
       </button>
-      <button (click)="playerService.toggleRepeat()" mat-icon-button>
+      <button
+        title="Toggle repeat"
+        (click)="playerService.toggleRepeat()"
+        mat-icon-button
+      >
         <mat-icon
           *ngIf="repeat === Repeat.One; else repeatdefault"
           class="highlight"
@@ -51,6 +63,7 @@
         </ng-template>
       </button>
       <button
+        title="Previous song"
         (click)="playerService.previousSong()"
         [disabled]="!playerService.songLoaded()"
         mat-icon-button
@@ -58,6 +71,7 @@
         <mat-icon>skip_previous</mat-icon>
       </button>
       <button
+        title="Toggle playing"
         (click)="playerService.togglePaused()"
         [disabled]="!playerService.songLoaded()"
         mat-icon-button
@@ -70,19 +84,24 @@
         >
       </button>
       <button
+        title="Next song"
         (click)="playerService.nextSong()"
         [disabled]="!playerService.songLoaded()"
         mat-icon-button
       >
         <mat-icon>skip_next</mat-icon>
       </button>
-      <button [matMenuTriggerFor]="menu" mat-icon-button>
+      <button title="Adjust volume" [matMenuTriggerFor]="menu" mat-icon-button>
         <mat-icon>{{ getVolumeIcon() }}</mat-icon>
       </button>
-      <button [routerLink]="'/queue'" mat-icon-button>
+      <button title="Navigate to queue" [routerLink]="'/queue'" mat-icon-button>
         <mat-icon>queue_music</mat-icon>
       </button>
-      <button [routerLink]="'/account'" mat-icon-button>
+      <button
+        title="Navigate to settings"
+        [routerLink]="'/account'"
+        mat-icon-button
+      >
         <mat-icon>account_circle</mat-icon>
       </button>
       <mat-menu #menu="matMenu">

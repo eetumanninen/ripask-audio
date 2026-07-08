@@ -6,7 +6,7 @@
           <ng-container *ngFor="let coverArt of artist.coverArtUrls">
             <img
               [src]="coverArt"
-              [title]="artist.name"
+              [title]="'Go to artist: ' + artist.name"
               alt=""
               class="img-responsive"
               crossorigin="anonymous"
@@ -16,7 +16,11 @@
             />
           </ng-container>
         </div>
-        <div (click)="playArtist(artist)" class="album-overlay clickable">
+        <div
+          title="Play songs by artist"
+          (click)="playArtist(artist)"
+          class="album-overlay clickable"
+        >
           <mat-icon [color]="'primary'" class="play-card">play_arrow</mat-icon>
         </div>
       </div>

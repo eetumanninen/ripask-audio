@@ -103,6 +103,7 @@
   </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row
+    [title]="'Play album starting from this song'"
     (click)="play(row)"
     *matRowDef="let row; columns: displayedColumns"
     class="clickable"

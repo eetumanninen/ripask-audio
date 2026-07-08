@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
 // TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
 //  The following line adds:
@@ -15,23 +15,26 @@ $ripask-audio-primary: mat.define-palette(mat.$orange-palette, 400);
 $ripask-audio-accent: mat.define-palette(mat.$gray-palette, A200, 100, A400);
 $ripask-audio-warn: mat.define-palette(mat.$red-palette);
 
-$ripask-audio-theme: mat.define-light-theme((
-  color: (
-    primary: $ripask-audio-primary,
-    accent: $ripask-audio-accent,
-    warn: $ripask-audio-warn,
+$ripask-audio-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $ripask-audio-primary,
+      accent: $ripask-audio-accent,
+      warn: $ripask-audio-warn,
+    ),
   )
-));
+);
 
 @include mat.legacy-core-theme($ripask-audio-theme);
 @include mat.all-legacy-component-themes($ripask-audio-theme);
 
 /* You can add global styles to this file, and also import other style files */
 
-@import 'bootstrap/scss/bootstrap-grid.scss';
-@import 'bootstrap/scss/bootstrap.scss';
+@import "bootstrap/scss/bootstrap-grid.scss";
+@import "bootstrap/scss/bootstrap.scss";
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -62,7 +65,7 @@ body {
 }
 
 .subtitle.title {
-  opacity: .7;
+  opacity: 0.7;
   font-weight: initial;
 }
 
@@ -77,9 +80,7 @@ body {
 img {
   background: url("/assets/no-image.png");
   background-size: contain;
-}
 
-img {
   background-color: lightgray;
 }
 
@@ -100,11 +101,14 @@ p {
   z-index: 10;
   border: solid mat.get-color-from-palette($ripask-audio-primary, darker) 2px;
   border-radius: 100px;
-}
 
-.album-overlay:hover {
-  background-color: mat.get-color-from-palette($ripask-audio-primary, lighter) !important;
-  transition: .5s ease;
+  &:hover {
+    background-color: mat.get-color-from-palette(
+      $ripask-audio-primary,
+      lighter
+    ) !important;
+    transition: 0.5s ease;
+  }
 }
 
 .play-card {
@@ -120,8 +124,8 @@ p {
 
 .link {
   cursor: pointer;
-}
 
-.link:hover {
-  text-decoration: underline;
+  &:hover {
+    text-decoration: underline;
+  }
 }

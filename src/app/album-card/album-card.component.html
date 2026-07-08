@@ -5,7 +5,7 @@
         <div [routerLink]="'/album/' + album.id" class="album-container">
           <img
             [src]="album.coverArtUrl"
-            [title]="album.name"
+            [title]="'Go to album: ' + album.name"
             alt=""
             class="img-responsive"
             crossorigin="anonymous"
@@ -14,7 +14,11 @@
             width="300"
           />
         </div>
-        <div (click)="playAlbum(album.id)" class="album-overlay clickable">
+        <div
+          title="Play songs in album"
+          (click)="playAlbum(album.id)"
+          class="album-overlay clickable"
+        >
           <mat-icon [color]="'primary'" class="play-card">play_arrow</mat-icon>
         </div>
       </div>
