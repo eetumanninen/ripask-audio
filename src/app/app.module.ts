@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { TransformInterceptor } from "./interceptor/transform.interceptor";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { MatTabsModule } from "@angular/material/tabs";
@@ -33,45 +33,39 @@ import { ArtistListComponent } from "./artist-list/artist-list.component";
 import { ArtistCardComponent } from "./artist-card/artist-card.component";
 import { ArtistComponent } from "./artist/artist.component";
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    PlayerComponent,
-    QueueComponent,
-    NavbarComponent,
-    RecentsComponent,
-    AlbumsComponent,
-    AlbumCardComponent,
-    GenresComponent,
-    GenreComponent,
-    GenreListComponent,
-    GenreCardComponent,
-    PlayerSliderComponent,
-    AlbumListComponent,
-    AlbumComponent,
-    AccountComponent,
-    ArtistsComponent,
-    ArtistListComponent,
-    ArtistCardComponent,
-    ArtistComponent,
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    NoopAnimationsModule,
-    MatIconModule,
-    FormsModule,
-    MatTabsModule,
-    MatSliderModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatTableModule,
-    SongListComponent,
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: TransformInterceptor, multi: true },
-  ],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        PlayerComponent,
+        QueueComponent,
+        NavbarComponent,
+        RecentsComponent,
+        AlbumsComponent,
+        AlbumCardComponent,
+        GenresComponent,
+        GenreComponent,
+        GenreListComponent,
+        GenreCardComponent,
+        PlayerSliderComponent,
+        AlbumListComponent,
+        AlbumComponent,
+        AccountComponent,
+        ArtistsComponent,
+        ArtistListComponent,
+        ArtistCardComponent,
+        ArtistComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        NoopAnimationsModule,
+        MatIconModule,
+        FormsModule,
+        MatTabsModule,
+        MatSliderModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatTableModule,
+        SongListComponent], providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: TransformInterceptor, multi: true },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {}
