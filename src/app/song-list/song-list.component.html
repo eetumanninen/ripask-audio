@@ -1,4 +1,4 @@
-<mat-table [dataSource]="songs" class="mat-elevation-z4">
+<table mat-table [dataSource]="songs" class="mat-elevation-z4">
   <ng-container matColumnDef="track">
     <mat-header-cell *matHeaderCellDef style="max-width: 3.5rem"
       >#</mat-header-cell
@@ -108,4 +108,4 @@
     *matRowDef="let row; columns: displayedColumns"
     class="clickable"
   ></mat-row>
-</mat-table>
+</table>

@@ -32,7 +32,7 @@ export class PlayerComponent {
     this.playerService.setCurrentTime(value);
   }
 
-  onInputChange({ value }: { value: number | null }): void {
+  onInputChange(value: number): void {
     if (value !== null) {
       this.playerService.playerVolume = value;
     }

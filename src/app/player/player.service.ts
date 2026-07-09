@@ -132,7 +132,11 @@ export class PlayerService {
   }
 
   togglePaused(): void {
-    this._player.paused ? this._player.play() : this._player.pause();
+    if (this._player.paused) {
+      this._player.play()
+    } else {
+      this._player.pause();
+    }
   }
 
   getShuffle(): boolean {

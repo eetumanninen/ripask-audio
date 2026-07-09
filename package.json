@@ -35,8 +35,8 @@
     "@angular-eslint/template-parser": "17.5.3",
     "@angular/cli": "17.3.17",
     "@angular/compiler-cli": "17.3.12",
-    "@typescript-eslint/eslint-plugin": "5.48.1",
-    "@typescript-eslint/parser": "5.48.1",
+    "@typescript-eslint/eslint-plugin": "8.63.0",
+    "@typescript-eslint/parser": "8.63.0",
     "eslint": "^8.31.0",
     "typescript": "5.4.5"
   }

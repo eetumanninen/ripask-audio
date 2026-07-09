@@ -106,14 +106,12 @@
       </button>
       <mat-menu #menu="matMenu">
         <mat-slider
-          (input)="onInputChange($event)"
           [color]="'primary'"
           [step]="0.05"
-          [value]="playerService.playerVolume"
           max="1"
           min="0"
           vertical="true"
-        ></mat-slider>
+        ><input matSliderThumb [value]="playerService.playerVolume" (valueChange)="onInputChange($event)"></mat-slider>
       </mat-menu>
     </div>
     <div class="controls-end"></div>

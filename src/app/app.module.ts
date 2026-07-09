@@ -6,13 +6,13 @@ import { AppComponent } from "./app.component";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { TransformInterceptor } from "./interceptor/transform.interceptor";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
-import { MatLegacyTabsModule as MatTabsModule } from "@angular/material/legacy-tabs";
+import { MatTabsModule } from "@angular/material/tabs";
 import { PlayerComponent } from "./player/player.component";
 import { MatIconModule } from "@angular/material/icon";
-import { MatLegacySliderModule as MatSliderModule } from "@angular/material/legacy-slider";
-import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
-import { MatLegacyMenuModule as MatMenuModule } from "@angular/material/legacy-menu";
-import { MatLegacyTableModule as MatTableModule } from "@angular/material/legacy-table";
+import { MatSliderModule } from "@angular/material/slider";
+import { MatButtonModule } from "@angular/material/button";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatTableModule } from "@angular/material/table";
 import { QueueComponent } from "./queue/queue.component";
 import { NavbarComponent } from "./navbar/navbar.component";
 import { RecentsComponent } from "./recents/recents.component";
@@ -49,7 +49,6 @@ import { ArtistComponent } from "./artist/artist.component";
     PlayerSliderComponent,
     AlbumListComponent,
     AlbumComponent,
-    SongListComponent,
     AccountComponent,
     ArtistsComponent,
     ArtistListComponent,
@@ -61,13 +60,14 @@ import { ArtistComponent } from "./artist/artist.component";
     HttpClientModule,
     AppRoutingModule,
     NoopAnimationsModule,
-    MatTabsModule,
     MatIconModule,
+    FormsModule,
+    MatTabsModule,
     MatSliderModule,
     MatButtonModule,
     MatMenuModule,
     MatTableModule,
-    FormsModule,
+    SongListComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TransformInterceptor, multi: true },

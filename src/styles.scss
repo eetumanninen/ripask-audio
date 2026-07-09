@@ -8,8 +8,8 @@
 //  If you don't need the default component typographies but still want the hierarchy styles,
 //  you can delete this line and instead use:
 //    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
-@include mat.all-legacy-component-typographies();
-@include mat.legacy-core();
+@include mat.all-component-typographies();
+@include mat.core();
 
 $ripask-audio-primary: mat.define-palette(mat.$orange-palette, 400);
 $ripask-audio-accent: mat.define-palette(mat.$gray-palette, A200, 100, A400);
@@ -25,8 +25,8 @@ $ripask-audio-theme: mat.define-light-theme(
   )
 );
 
-@include mat.legacy-core-theme($ripask-audio-theme);
-@include mat.all-legacy-component-themes($ripask-audio-theme);
+@include mat.core-theme($ripask-audio-theme);
+@include mat.all-component-themes($ripask-audio-theme);
 
 /* You can add global styles to this file, and also import other style files */
 
