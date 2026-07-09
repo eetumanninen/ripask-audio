@@ -5,9 +5,10 @@ import { ActivatedRoute } from "@angular/router";
 import { PlayerService } from "../player/player.service";
 
 @Component({
-  selector: "app-artist",
-  templateUrl: "./artist.component.html",
-  styleUrls: ["./artist.component.scss"],
+    selector: "app-artist",
+    templateUrl: "./artist.component.html",
+    styleUrls: ["./artist.component.scss"],
+    standalone: false
 })
 export class ArtistComponent implements OnInit {
   artist: Artist | undefined;

@@ -3,9 +3,10 @@ import { SubsonicService } from "../subsonic/subsonic.service";
 import { Album } from "../subsonic/subsonic.model";
 
 @Component({
-  selector: "app-recents",
-  templateUrl: "./recents.component.html",
-  styleUrls: ["./recents.component.scss"],
+    selector: "app-recents",
+    templateUrl: "./recents.component.html",
+    styleUrls: ["./recents.component.scss"],
+    standalone: false
 })
 export class RecentsComponent implements OnInit {
   recents: Album[] = [];

@@ -2,9 +2,10 @@ import { Component } from "@angular/core";
 import { Link } from "./navbar.model";
 
 @Component({
-  selector: "app-navbar",
-  templateUrl: "./navbar.component.html",
-  styleUrls: ["./navbar.component.scss"],
+    selector: "app-navbar",
+    templateUrl: "./navbar.component.html",
+    styleUrls: ["./navbar.component.scss"],
+    standalone: false
 })
 export class NavbarComponent {
   links: Link[] = [

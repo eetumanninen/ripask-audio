@@ -3,9 +3,10 @@ import { Song } from "../subsonic/subsonic.model";
 import { QueueService } from "./queue.service";
 
 @Component({
-  selector: "app-queue",
-  templateUrl: "./queue.component.html",
-  styleUrls: ["./queue.component.scss"],
+    selector: "app-queue",
+    templateUrl: "./queue.component.html",
+    styleUrls: ["./queue.component.scss"],
+    standalone: false
 })
 export class QueueComponent {
   constructor(private queueService: QueueService) {}

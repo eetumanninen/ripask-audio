@@ -4,9 +4,10 @@ import { Genre } from "../subsonic/subsonic.model";
 import { forkJoin } from "rxjs";
 
 @Component({
-  selector: "app-genres",
-  templateUrl: "./genres.component.html",
-  styleUrls: ["./genres.component.scss"],
+    selector: "app-genres",
+    templateUrl: "./genres.component.html",
+    styleUrls: ["./genres.component.scss"],
+    standalone: false
 })
 export class GenresComponent implements OnInit {
   genres: Genre[] = [];

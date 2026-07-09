@@ -8,11 +8,10 @@ import { MatTableModule } from "@angular/material/table";
 import { CommonModule } from "@angular/common";
 
 @Component({
-  selector: "app-song-list",
-  templateUrl: "./song-list.component.html",
-  styleUrls: ["./song-list.component.scss"],
-  standalone: true,
-  imports: [MatTableModule, CommonModule],
+    selector: "app-song-list",
+    templateUrl: "./song-list.component.html",
+    styleUrls: ["./song-list.component.scss"],
+    imports: [MatTableModule, CommonModule]
 })
 export class SongListComponent implements OnInit {
   @Input() songs: Song[] = [];

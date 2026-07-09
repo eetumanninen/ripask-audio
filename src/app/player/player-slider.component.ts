@@ -24,11 +24,12 @@ const activeEventOptions = normalizePassiveListenerOptions({ passive: false });
  * behavior to the native `<input type="range">` element.
  */
 @Component({
-  selector: "app-player-slider",
-  templateUrl: "player-slider.component.html",
-  styleUrls: ["player-slider.component.scss"],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: "app-player-slider",
+    templateUrl: "player-slider.component.html",
+    styleUrls: ["player-slider.component.scss"],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PlayerSliderComponent implements OnDestroy {
   @HostBinding("attr.role") slider = "slider";

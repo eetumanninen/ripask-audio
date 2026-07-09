@@ -9,9 +9,10 @@ import { PlayerService } from "./player/player.service";
 import { GlobalsService } from "./globals.service";
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
+    selector: "app-root",
+    templateUrl: "./app.component.html",
+    styleUrls: ["./app.component.scss"],
+    standalone: false
 })
 export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild("player") player_elem: ElementRef | undefined;

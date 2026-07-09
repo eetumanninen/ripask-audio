@@ -3,9 +3,10 @@ import { SubsonicService } from "../subsonic/subsonic.service";
 import { Album } from "../subsonic/subsonic.model";
 
 @Component({
-  selector: "app-albums",
-  templateUrl: "./albums.component.html",
-  styleUrls: ["./albums.component.scss"],
+    selector: "app-albums",
+    templateUrl: "./albums.component.html",
+    styleUrls: ["./albums.component.scss"],
+    standalone: false
 })
 export class AlbumsComponent implements OnInit {
   albums: Album[] = [];

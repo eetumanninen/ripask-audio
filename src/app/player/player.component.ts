@@ -2,10 +2,11 @@ import { Component, HostBinding, ViewEncapsulation } from "@angular/core";
 import { PlayerService, Repeat } from "./player.service";
 
 @Component({
-  selector: "app-player",
-  templateUrl: "./player.component.html",
-  styleUrls: ["./player.component.scss"],
-  encapsulation: ViewEncapsulation.None,
+    selector: "app-player",
+    templateUrl: "./player.component.html",
+    styleUrls: ["./player.component.scss"],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class PlayerComponent {
   @HostBinding("class.player") player = true;

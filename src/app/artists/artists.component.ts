@@ -3,9 +3,10 @@ import { SubsonicService } from "../subsonic/subsonic.service";
 import { ArtistList } from "../subsonic/subsonic.model";
 
 @Component({
-  selector: "app-artists",
-  templateUrl: "./artists.component.html",
-  styleUrls: ["./artists.component.scss"],
+    selector: "app-artists",
+    templateUrl: "./artists.component.html",
+    styleUrls: ["./artists.component.scss"],
+    standalone: false
 })
 export class ArtistsComponent implements OnInit {
   artists: ArtistList[] = [];

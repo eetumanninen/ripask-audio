@@ -4,9 +4,10 @@ import { Album } from "../subsonic/subsonic.model";
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
-  selector: "app-genre",
-  templateUrl: "./genre.component.html",
-  styleUrls: ["./genre.component.scss"],
+    selector: "app-genre",
+    templateUrl: "./genre.component.html",
+    styleUrls: ["./genre.component.scss"],
+    standalone: false
 })
 export class GenreComponent implements OnInit {
   albums: Album[] = [];
