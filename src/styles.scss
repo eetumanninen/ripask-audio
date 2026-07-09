@@ -11,11 +11,11 @@
 @include mat.all-component-typographies();
 @include mat.core();
 
-$ripask-audio-primary: mat.define-palette(mat.$orange-palette, 400);
-$ripask-audio-accent: mat.define-palette(mat.$gray-palette, A200, 100, A400);
-$ripask-audio-warn: mat.define-palette(mat.$red-palette);
+$ripask-audio-primary: mat.m2-define-palette(mat.$m2-orange-palette, 400);
+$ripask-audio-accent: mat.m2-define-palette(mat.$m2-gray-palette, A200, 100, A400);
+$ripask-audio-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
-$ripask-audio-theme: mat.define-light-theme(
+$ripask-audio-theme: mat.m2-define-light-theme(
   (
     color: (
       primary: $ripask-audio-primary,
@@ -41,7 +41,7 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: mat.get-color-from-palette($ripask-audio-accent, lighter);
+  background-color: mat.m2-get-color-from-palette($ripask-audio-accent, lighter);
 }
 
 .mat-menu-panel {
@@ -49,7 +49,7 @@ body {
 }
 
 .highlight {
-  color: mat.get-color-from-palette($ripask-audio-primary, darker);
+  color: mat.m2-get-color-from-palette($ripask-audio-primary, darker);
 }
 
 .active {
@@ -70,7 +70,7 @@ body {
 }
 
 .mat-slider-track-fill {
-  background-color: mat.get-color-from-palette($ripask-audio-primary, darker);
+  background-color: mat.m2-get-color-from-palette($ripask-audio-primary, darker);
 }
 
 .clickable {
@@ -93,17 +93,17 @@ p {
 }
 
 .album-overlay {
-  background-color: mat.get-color-from-palette($ripask-audio-accent, lighter);
+  background-color: mat.m2-get-color-from-palette($ripask-audio-accent, lighter);
   font-size: 32px;
   position: absolute;
   bottom: 5px;
   right: 5px;
   z-index: 10;
-  border: solid mat.get-color-from-palette($ripask-audio-primary, darker) 2px;
+  border: solid mat.m2-get-color-from-palette($ripask-audio-primary, darker) 2px;
   border-radius: 100px;
 
   &:hover {
-    background-color: mat.get-color-from-palette(
+    background-color: mat.m2-get-color-from-palette(
       $ripask-audio-primary,
       lighter
     ) !important;

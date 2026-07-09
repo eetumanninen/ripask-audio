@@ -2,7 +2,7 @@
   class="mat-elevation-z6"
   style="position: sticky; width: 100%; top: 0; z-index: 100"
 >
-  <nav [backgroundColor]="'primary'" mat-align-tabs="center" mat-tab-nav-bar>
+  <nav [backgroundColor]="'primary'" mat-align-tabs="center" mat-tab-nav-bar [tabPanel]="tabPanel">
     <a
       *ngFor="let link of links"
       [routerLinkActive]="'active'"
@@ -12,4 +12,5 @@
       {{ link.name }}
     </a>
   </nav>
+  <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 </div>
