@@ -73,8 +73,7 @@ export class SubsonicService {
     return forkJoin([artist, albums]).pipe(
       map((res) =>
         res[0].map(
-          (a: any) =>
-            new ArtistList(a, this.getArtistListCoverArtUrl(a, res[1])),
+          (a) => new ArtistList(a, this.getArtistListCoverArtUrl(a, res[1])),
         ),
       ),
     );
