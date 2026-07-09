@@ -4,8 +4,8 @@
       [title]="'Play songs by artist: ' + artist?.name"
       (click)="playArtist()"
       class="col-12 col-sm-3 gx-sm-4 g-0 clickable artist-container"
-    >
-      <ng-container *ngIf="artist?.coverArtUrls?.length === 1; else splitImg">
+      >
+      @if (artist?.coverArtUrls?.length === 1) {
         <img
           [src]="artist?.coverArtUrls![0]"
           alt=""
@@ -14,24 +14,24 @@
           height="300"
           loading="lazy"
           width="300"
-        />
-      </ng-container>
-      <ng-template #splitImg>
-        <div
-          *ngFor="let coverArt of artist?.coverArtUrls"
-          class="artist-img-split-container"
-        >
-          <img
-            [src]="coverArt"
-            alt=""
-            class="artist-img-split"
-            crossorigin="anonymous"
-            height="300"
-            loading="lazy"
-            width="300"
           />
-        </div>
-      </ng-template>
+      } @else {
+        @for (coverArt of artist?.coverArtUrls; track coverArt) {
+          <div
+            class="artist-img-split-container"
+            >
+            <img
+              [src]="coverArt"
+              alt=""
+              class="artist-img-split"
+              crossorigin="anonymous"
+              height="300"
+              loading="lazy"
+              width="300"
+              />
+          </div>
+        }
+      }
     </div>
     <div class="col-12 col-sm-5 pl-4 pb-3">
       <h3 class="artist-title">{{ artist?.name }}</h3>

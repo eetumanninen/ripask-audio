@@ -13,9 +13,10 @@ import {
   Output,
   ViewChild,
   ViewEncapsulation,
+  DOCUMENT
 } from "@angular/core";
 import { normalizePassiveListenerOptions } from "@angular/cdk/platform";
-import { DOCUMENT } from "@angular/common";
+
 
 const activeEventOptions = normalizePassiveListenerOptions({ passive: false });
 

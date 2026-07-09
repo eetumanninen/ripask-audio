@@ -5,13 +5,13 @@ import { Song } from "../subsonic/subsonic.model";
 import { QueueService } from "../queue/queue.service";
 import { shuffleArr } from "../helpers";
 import { MatTableModule } from "@angular/material/table";
-import { CommonModule } from "@angular/common";
+
 
 @Component({
     selector: "app-song-list",
     templateUrl: "./song-list.component.html",
     styleUrls: ["./song-list.component.scss"],
-    imports: [MatTableModule, CommonModule]
+    imports: [MatTableModule]
 })
 export class SongListComponent implements OnInit {
   @Input() songs: Song[] = [];

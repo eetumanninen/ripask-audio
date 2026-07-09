@@ -1,11 +1,11 @@
 <div class="card mat-elevation-z4">
-  <ng-container *ngIf="genre as genre">
+  @if (genre; as genre) {
     <div>
       <div
         [title]="'Go to genre: ' + genre.value"
         [routerLink]="'/genre/' + genre.encodedValue"
         class="clickable"
-      >
+        >
         <div class="split">
           <div class="single-container">
             <img
@@ -16,17 +16,14 @@
               height="300"
               loading="lazy"
               width="300"
-            />
+              />
           </div>
         </div>
         <div class="split">
           <div class="stacked-container">
-            <ng-container
-              *ngFor="
-                let coverArtUrl of genre.coverArtUrls.slice(1);
-                let i = index
-              "
-            >
+            @for (
+              coverArtUrl of genre.coverArtUrls.slice(1); track
+              coverArtUrl; let i = $index) {
               <img
                 [src]="coverArtUrl"
                 alt=""
@@ -35,25 +32,26 @@
                 height="300"
                 loading="lazy"
                 width="300"
-              />
-            </ng-container>
+                />
+            }
           </div>
         </div>
       </div>
-      <div
-        title="Play random songs by genre"
-        (click)="playRandomByGenre(genre.value)"
-        *ngIf="genre.value"
-        class="album-overlay clickable"
-        style="bottom: 50px"
-      >
-        <mat-icon [color]="'primary'" class="play-card">play_arrow</mat-icon>
-      </div>
+      @if (genre.value) {
+        <div
+          title="Play random songs by genre"
+          (click)="playRandomByGenre(genre.value)"
+          class="album-overlay clickable"
+          style="bottom: 50px"
+          >
+          <mat-icon [color]="'primary'" class="play-card">play_arrow</mat-icon>
+        </div>
+      }
     </div>
     <div class="card-body">
       <div [title]="genre.value || 'No genre'" class="title">
         {{ genre.value || "No genre" }}
       </div>
     </div>
-  </ng-container>
+  }
 </div>

@@ -1,8 +1,12 @@
 <div class="container">
-  <h3 *ngIf="title">{{ title }}</h3>
+  @if (title) {
+    <h3>{{ title }}</h3>
+  }
   <div class="row g-3">
-    <div *ngFor="let album of albums" class="col-lg-2 col-md-3 col-sm-4 col-6">
-      <app-album-card [album]="album"></app-album-card>
-    </div>
+    @for (album of albums; track album) {
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+        <app-album-card [album]="album"></app-album-card>
+      </div>
+    }
   </div>
 </div>

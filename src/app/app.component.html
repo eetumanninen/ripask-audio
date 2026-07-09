@@ -1,9 +1,13 @@
 <div class="app-container">
-  <app-navbar *ngIf="authenticated"></app-navbar>
+  @if (authenticated) {
+    <app-navbar></app-navbar>
+  }
   <div class="main-view">
     <router-outlet></router-outlet>
   </div>
 
-  <app-player *ngIf="loaded && authenticated"></app-player>
+  @if (loaded && authenticated) {
+    <app-player></app-player>
+  }
   <audio #player></audio>
 </div>
