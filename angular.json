@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ripask-audio:build:production"
+              "buildTarget": "ripask-audio:build:production"
             },
             "development": {
-              "browserTarget": "ripask-audio:build:development"
+              "buildTarget": "ripask-audio:build:development"
             }
           },
           "defaultConfiguration": "development"
