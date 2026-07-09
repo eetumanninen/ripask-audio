@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { Song } from "../subsonic/subsonic.model";
 import { QueueService } from "./queue.service";
 
@@ -6,6 +6,7 @@ import { QueueService } from "./queue.service";
     selector: "app-queue",
     templateUrl: "./queue.component.html",
     styleUrls: ["./queue.component.scss"],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class QueueComponent {

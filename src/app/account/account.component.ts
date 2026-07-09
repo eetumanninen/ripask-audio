@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { GlobalsService } from "../globals.service";
 import { Router } from "@angular/router";
 
@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
     selector: "app-account",
     templateUrl: "./account.component.html",
     styleUrls: ["./account.component.scss"],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AccountComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, ChangeDetectionStrategy} from "@angular/core";
 import {Album} from "../subsonic/subsonic.model";
 import {PlayerService} from "../player/player.service";
 
@@ -6,6 +6,7 @@ import {PlayerService} from "../player/player.service";
     selector: "app-album-card",
     templateUrl: "./album-card.component.html",
     styleUrls: ["./album-card.component.scss"],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AlbumCardComponent {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { SubsonicService } from "../subsonic/subsonic.service";
 import { Album } from "../subsonic/subsonic.model";
 import { ActivatedRoute } from "@angular/router";
@@ -7,6 +7,7 @@ import { ActivatedRoute } from "@angular/router";
     selector: "app-genre",
     templateUrl: "./genre.component.html",
     styleUrls: ["./genre.component.scss"],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class GenreComponent implements OnInit {

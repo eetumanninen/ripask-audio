@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { SubsonicService } from "../subsonic/subsonic.service";
 import { PlayerService } from "../player/player.service";
 import { Song } from "../subsonic/subsonic.model";
@@ -11,6 +11,7 @@ import { MatTableModule } from "@angular/material/table";
     selector: "app-song-list",
     templateUrl: "./song-list.component.html",
     styleUrls: ["./song-list.component.scss"],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatTableModule]
 })
 export class SongListComponent implements OnInit {

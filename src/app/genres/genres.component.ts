@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { SubsonicService } from "../subsonic/subsonic.service";
 import { Genre } from "../subsonic/subsonic.model";
 import { forkJoin } from "rxjs";
@@ -7,6 +7,7 @@ import { forkJoin } from "rxjs";
     selector: "app-genres",
     templateUrl: "./genres.component.html",
     styleUrls: ["./genres.component.scss"],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class GenresComponent implements OnInit {

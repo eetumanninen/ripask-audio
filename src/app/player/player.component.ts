@@ -1,4 +1,4 @@
-import { Component, HostBinding, ViewEncapsulation } from "@angular/core";
+import { Component, HostBinding, ViewEncapsulation, ChangeDetectionStrategy } from "@angular/core";
 import { PlayerService, Repeat } from "./player.service";
 
 @Component({
@@ -6,6 +6,7 @@ import { PlayerService, Repeat } from "./player.service";
     templateUrl: "./player.component.html",
     styleUrls: ["./player.component.scss"],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PlayerComponent {

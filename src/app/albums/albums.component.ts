@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { SubsonicService } from "../subsonic/subsonic.service";
 import { Album } from "../subsonic/subsonic.model";
 
@@ -6,6 +6,7 @@ import { Album } from "../subsonic/subsonic.model";
     selector: "app-albums",
     templateUrl: "./albums.component.html",
     styleUrls: ["./albums.component.scss"],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AlbumsComponent implements OnInit {

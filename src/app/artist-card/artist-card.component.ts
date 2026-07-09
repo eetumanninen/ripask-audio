@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, ChangeDetectionStrategy } from "@angular/core";
 import { ArtistList } from "../subsonic/subsonic.model";
 import { PlayerService } from "../player/player.service";
 
@@ -6,6 +6,7 @@ import { PlayerService } from "../player/player.service";
     selector: "app-artist-card",
     templateUrl: "./artist-card.component.html",
     styleUrls: ["./artist-card.component.scss"],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ArtistCardComponent {

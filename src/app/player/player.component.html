@@ -20,13 +20,13 @@
       </div>
       <div class="info">
         <div
-          [title]="playerService.currentSong?.title"
+          [title]="$safeNavigationMigration(playerService.currentSong?.title)"
           class="title-player title"
           >
           {{ playerService.currentSong?.title }}
         </div>
         <div
-          [title]="playerService.currentSong?.artist"
+          [title]="$safeNavigationMigration(playerService.currentSong?.artist)"
           class="artist-player title subtitle"
           >
           {{ playerService.currentSong?.artist }}

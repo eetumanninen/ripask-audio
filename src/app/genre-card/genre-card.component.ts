@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, ChangeDetectionStrategy} from "@angular/core";
 import {Genre} from "../subsonic/subsonic.model";
 import {PlayerService} from "../player/player.service";
 
@@ -6,6 +6,7 @@ import {PlayerService} from "../player/player.service";
     selector: "app-genre-card",
     templateUrl: "./genre-card.component.html",
     styleUrls: ["./genre-card.component.scss"],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class GenreCardComponent {

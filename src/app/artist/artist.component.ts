@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { SubsonicService } from "../subsonic/subsonic.service";
 import { Album, Artist } from "../subsonic/subsonic.model";
 import { ActivatedRoute } from "@angular/router";
@@ -8,6 +8,7 @@ import { PlayerService } from "../player/player.service";
     selector: "app-artist",
     templateUrl: "./artist.component.html",
     styleUrls: ["./artist.component.scss"],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ArtistComponent implements OnInit {
