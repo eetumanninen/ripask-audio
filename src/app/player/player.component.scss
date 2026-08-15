@@ -7,6 +7,10 @@
   background-color: #fff;
 }
 
+.controls-middle {
+  display: inline-flex;
+}
+
 .slider {
   display: flex;
   height: 0;
@@ -38,9 +42,11 @@
 
 .primary-play-btn {
   font-size: 36px !important;
+  height: 36px !important;
+  width: 36px !important;
 }
 
-.mat-button-disabled > .mat-button-wrapper > .mat-icon {
+.mat-mdc-button-disabled > .mat-icon {
   color: rgba(0, 0, 0, 0.26) !important;
 }
 

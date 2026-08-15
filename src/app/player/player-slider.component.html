@@ -1,9 +1,8 @@
-<div #sliderWrapper class="mat-slider-wrapper">
-  <div class="mat-slider-track-wrapper">
+<div #sliderWrapper>
+  <div class="mdc-slider__track">
     <div
-      [ngStyle]="_getTrackBackgroundStyles()"
-      class="mat-slider-track-background"
+      class="mdc-slider__track--inactive"
     ></div>
-    <div [ngStyle]="_getTrackFillStyles()" class="mat-slider-track-fill"></div>
+    <div [ngStyle]="_getTrackFillStyles()" class="mdc-slider__track--active_fill"></div>
   </div>
 </div>

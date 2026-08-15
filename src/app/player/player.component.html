@@ -20,13 +20,13 @@
       </div>
       <div class="info">
         <div
-          [title]="$safeNavigationMigration(playerService.currentSong?.title)"
+          [title]="playerService.currentSong?.title"
           class="title-player title"
           >
           {{ playerService.currentSong?.title }}
         </div>
         <div
-          [title]="$safeNavigationMigration(playerService.currentSong?.artist)"
+          [title]="playerService.currentSong?.artist"
           class="artist-player title subtitle"
           >
           {{ playerService.currentSong?.artist }}
@@ -74,11 +74,11 @@
           title="Toggle playing"
           (click)="playerService.togglePaused()"
           [disabled]="!playerService.songLoaded()"
+          class="p-0"
           mat-icon-button
           >
           <mat-icon
             [color]="'primary'"
-            [inline]="true"
             class="primary-play-btn"
             >{{ getPlayIcon() }}</mat-icon
             >
@@ -110,7 +110,6 @@
               [step]="0.05"
               max="1"
               min="0"
-              vertical="true"
               ><input matSliderThumb [value]="playerService.playerVolume" (valueChange)="onInputChange($event)"></mat-slider>
             </mat-menu>
           </div>

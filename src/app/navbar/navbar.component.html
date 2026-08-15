@@ -2,7 +2,7 @@
   class="mat-elevation-z6"
   style="position: sticky; width: 100%; top: 0; z-index: 100"
   >
-  <nav [backgroundColor]="'primary'" mat-align-tabs="center" mat-tab-nav-bar [tabPanel]="tabPanel">
+  <nav [backgroundColor]="'primary'" mat-align-tabs="center" [mat-stretch-tabs]="false" mat-tab-nav-bar [tabPanel]="tabPanel">
     @for (link of links; track link) {
       <a
         [routerLinkActive]="'active'"

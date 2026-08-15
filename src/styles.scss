@@ -49,13 +49,17 @@ body {
   min-width: 0 !important;
 }
 
+.mdc-tab {
+  min-width: 160px !important;
+}
+
 .highlight {
   color: mat.m2-get-color-from-palette($ripask-audio-primary, darker);
 }
 
 .active {
   opacity: 1 !important;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid white !important;
 }
 
 .title {

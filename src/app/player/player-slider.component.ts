@@ -142,14 +142,6 @@ export class PlayerSliderComponent implements OnDestroy {
     this._focusHostElement(options);
   }
 
-  /** CSS styles for the track background element. */
-  _getTrackBackgroundStyles(): { [key: string]: string } {
-    return {
-      // scale3d avoids some rendering issues in Chrome. See #12071.
-      transform: `translateX(0) scale3d(${1 - this.percent}, 1, 1)`,
-    };
-  }
-
   /** CSS styles for the track fill element. */
   _getTrackFillStyles(): { [key: string]: string } {
     return {

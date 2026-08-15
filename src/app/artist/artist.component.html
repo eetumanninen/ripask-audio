@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row">
     <div
-      [title]="'Play songs by artist: ' + $safeNavigationMigration(artist?.name)"
+      [title]="'Play songs by artist: ' + artist?.name"
       (click)="playArtist()"
       class="col-12 col-sm-3 gx-sm-4 g-0 clickable artist-container"
       >
       @if (artist?.coverArtUrls?.length === 1) {
         <img
-          [src]="$safeNavigationMigration(artist?.coverArtUrls![0])"
+          [src]="artist?.coverArtUrls![0]"
           alt=""
           class="artist-img-single"
           crossorigin="anonymous"
