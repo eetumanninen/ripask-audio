@@ -14,14 +14,6 @@ and I couldn't find anything similar, so I decided to create one myself.
 I was also surprised that most existing web players did not handle queue correctly in my opinion,
 or did not have genre list / allow me to play songs randomly from a specific genre.
 
-## Caveats
-
-Please understand that this project is, first and foremost, for my own use and as such,
-I have implemented features that I find the most useful.
-
 ## Closing
 
-If you have any ideas on how to make the application better, I'm happy to hear them,
-but I emphasize that this application is mainly for my personal use, so I might not be
-willing to add features that I'd never use. In such cases, I'd encourage you to fork
-the project and make it fit your needs.
+If you have any ideas on how to make the application better, I'd be happy to hear them.
