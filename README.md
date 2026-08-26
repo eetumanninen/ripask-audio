@@ -1,10 +1,9 @@
 # RipaskAudio
 
-RipaskAudio is a self hosted web music player that works by connecting to a subsonic server.
-You have to provide the web server yourself, and build the project for use.
+RipaskAudio is a self hosted web music player frontend that works by connecting to a subsonic server.
+You have to provide the server yourself, and build the project for use.
 
-I personally use firebase as a web server, astiga as the subsonic server, and pCloud as
-my music storage.
+I personally use local installation of subsonic server and run the application from command line, playing music that I have locally on my computer.
 
 ## What and why
 
