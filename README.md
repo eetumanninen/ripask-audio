@@ -3,7 +3,7 @@
 RipaskAudio is a self hosted web music player frontend that works by connecting to a subsonic server.
 You have to provide the server yourself, and build the project for use.
 
-I personally use local installation of subsonic server and run the application from command line, playing music that I have locally on my computer.
+I personally use local installation of Navidrome for the server and run the application from command line, playing music that I have locally on my computer.
 
 ## What and why
 
