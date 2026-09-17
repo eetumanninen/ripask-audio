@@ -3,10 +3,12 @@
     <h3>{{ title }}</h3>
   }
   <div class="row g-3">
-    @for (album of albums; track album) {
+    @for (album of albums; track album.id) {
       <div class="col-lg-2 col-md-3 col-sm-4 col-6">
         <app-album-card [album]="album"></app-album-card>
       </div>
+    } @empty {
+      <p>No albums found</p>
     }
   </div>
 </div>

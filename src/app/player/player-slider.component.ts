@@ -1,20 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  HostBinding,
-  HostListener,
-  Inject,
-  Input,
-  NgZone,
-  OnDestroy,
-  Output,
-  ViewChild,
-  ViewEncapsulation,
-  DOCUMENT
-} from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, NgZone, OnDestroy, Output, ViewChild, ViewEncapsulation, DOCUMENT, inject } from "@angular/core";
 import { normalizePassiveListenerOptions } from "@angular/cdk/platform";
 
 
@@ -33,6 +17,10 @@ const activeEventOptions = normalizePassiveListenerOptions({ passive: false });
     standalone: false
 })
 export class PlayerSliderComponent implements OnDestroy {
+  private _elementRef = inject(ElementRef);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _ngZone = inject(NgZone);
+
   @HostBinding("attr.role") slider = "slider";
   @HostBinding("class._mat-animation-noopable")
   @HostBinding("class.mat-slider-horizontal")
@@ -62,12 +50,14 @@ export class PlayerSliderComponent implements OnDestroy {
   /** Keeps track of the last pointer event that was captured by the slider. */
   private _lastPointerEvent: MouseEvent | TouchEvent | null = null;
 
-  constructor(
-    private _elementRef: ElementRef,
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _ngZone: NgZone,
-    @Inject(DOCUMENT) _document: Document,
-  ) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
+    const _elementRef = this._elementRef;
+    const _ngZone = this._ngZone;
+    const _document = inject<Document>(DOCUMENT);
+
     this._document = _document;
 
     _ngZone.runOutsideAngular(() => {

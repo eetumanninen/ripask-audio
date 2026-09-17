@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from "@angular/core";
+import { Component, Input, ChangeDetectionStrategy, inject } from "@angular/core";
 import { ArtistList } from "../subsonic/subsonic.model";
 import { PlayerService } from "../player/player.service";
 
@@ -10,9 +10,14 @@ import { PlayerService } from "../player/player.service";
     standalone: false
 })
 export class ArtistCardComponent {
+  private playerService = inject(PlayerService);
+
   @Input() artist: ArtistList | null = null;
 
-  constructor(private playerService: PlayerService) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   playArtist(artist: ArtistList): void {
     this.playerService.playArtist(artist.id);

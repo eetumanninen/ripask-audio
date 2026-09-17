@@ -2,11 +2,11 @@
   <div class="row">
     <div
       (click)="playSongs()"
-      [title]="'Play songs from album: ' + $safeNavigationMigration(album?.name)"
+      [title]="'Play songs from album: ' + album?.name || ''"
       class="col-12 col-sm-3 gx-sm-4 g-0 clickable album-img-container"
     >
       <img
-        [src]="$safeNavigationMigration(album?.coverArtUrl)"
+        [ngSrc]="album?.coverArtUrl || ''"
         alt=""
         class="album-img"
         crossorigin="anonymous"

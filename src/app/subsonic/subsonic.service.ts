@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { forkJoin, Observable } from "rxjs";
 import {
@@ -28,10 +28,13 @@ import { filterLimit, generateAvatar } from "../helpers";
   providedIn: "root",
 })
 export class SubsonicService {
-  constructor(
-    private http: HttpClient,
-    private globals: GlobalsService,
-  ) {}
+  private http = inject(HttpClient);
+  private globals = inject(GlobalsService);
+
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   getAlbumListBy(type: string, size = 0, genre = ""): Observable<Album[]> {
     const url = this.globals.getUrl("getAlbumList2");

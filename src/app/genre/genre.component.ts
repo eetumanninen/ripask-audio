@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy, inject } from "@angular/core";
 import { SubsonicService } from "../subsonic/subsonic.service";
 import { Album } from "../subsonic/subsonic.model";
 import { ActivatedRoute } from "@angular/router";
@@ -11,13 +11,16 @@ import { ActivatedRoute } from "@angular/router";
     standalone: false
 })
 export class GenreComponent implements OnInit {
+  private subsonicService = inject(SubsonicService);
+  private router = inject(ActivatedRoute);
+
   albums: Album[] = [];
   genre = "";
 
-  constructor(
-    private subsonicService: SubsonicService,
-    private router: ActivatedRoute,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit(): void {
     this.genre = decodeURIComponent(

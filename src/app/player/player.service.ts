@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { SubsonicService } from "../subsonic/subsonic.service";
 import { QueueService } from "../queue/queue.service";
 import { Title } from "@angular/platform-browser";
@@ -15,6 +15,10 @@ export enum Repeat {
   providedIn: "root",
 })
 export class PlayerService {
+  private subsonicService = inject(SubsonicService);
+  private queueService = inject(QueueService);
+  private titleService = inject(Title);
+
   currentSong: Song | null = null;
   currentProgress = 0;
   private _player!: HTMLAudioElement;
@@ -24,11 +28,10 @@ export class PlayerService {
   private repeat = Repeat.None;
   private volume = 0.5;
 
-  constructor(
-    private subsonicService: SubsonicService,
-    private queueService: QueueService,
-    private titleService: Title,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   get playerVolume(): number {
     return this._player.volume;

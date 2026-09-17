@@ -3,7 +3,7 @@
     <div class="artist-box clickable">
       <div class="artist">
         <div [routerLink]="'/artist/' + artist.id" class="artist-container">
-          @for (coverArt of artist.coverArtUrls; track coverArt) {
+          @for (coverArt of artist.coverArtUrls; track $index) {
             <img
               [src]="coverArt"
               [title]="'Go to artist: ' + artist.name"
@@ -13,14 +13,14 @@
               height="300"
               loading="lazy"
               width="300"
-              />
+            />
           }
         </div>
         <div
           title="Play songs by artist"
           (click)="playArtist(artist)"
           class="album-overlay clickable"
-          >
+        >
           <mat-icon [color]="'primary'" class="play-card">play_arrow</mat-icon>
         </div>
       </div>

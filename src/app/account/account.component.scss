@@ -1,0 +1,11 @@
+@media (max-width: 670px) {
+  .account-container {
+    height: calc(100vh - 144px);
+  }
+}
+
+@media (min-width: 670px) {
+  .account-container {
+    height: calc(100vh - 108px);
+  }
+}

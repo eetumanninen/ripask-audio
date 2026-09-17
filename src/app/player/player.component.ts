@@ -1,4 +1,4 @@
-import { Component, HostBinding, ViewEncapsulation, ChangeDetectionStrategy } from "@angular/core";
+import { Component, HostBinding, ViewEncapsulation, ChangeDetectionStrategy, inject } from "@angular/core";
 import { PlayerService, Repeat } from "./player.service";
 
 @Component({
@@ -10,11 +10,16 @@ import { PlayerService, Repeat } from "./player.service";
     standalone: false
 })
 export class PlayerComponent {
+  playerService = inject(PlayerService);
+
   @HostBinding("class.player") player = true;
 
   Repeat = Repeat;
 
-  constructor(public playerService: PlayerService) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   get shuffle(): boolean {
     return this.playerService.getShuffle();

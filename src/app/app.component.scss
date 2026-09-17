@@ -11,12 +11,12 @@
 
 @media (max-width: 670px) {
   .main-view {
-    height: calc(100% - 144px);
+    height: calc(100vh - 144px);
   }
 }
 
 @media (min-width: 670px) {
   .main-view {
-    height: calc(100% - 108px);
+    height: calc(100vh - 108px);
   }
 }

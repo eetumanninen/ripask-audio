@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { Component, Input, OnInit, ChangeDetectionStrategy, inject } from "@angular/core";
 import { SubsonicService } from "../subsonic/subsonic.service";
 import { PlayerService } from "../player/player.service";
 import { Song } from "../subsonic/subsonic.model";
@@ -15,16 +15,19 @@ import { MatTableModule } from "@angular/material/table";
     imports: [MatTableModule]
 })
 export class SongListComponent implements OnInit {
+  private subsonicService = inject(SubsonicService);
+  playerService = inject(PlayerService);
+  private queueService = inject(QueueService);
+
   @Input() songs: Song[] = [];
   @Input() queue = false;
   @Input() hideAlbum = false;
   displayedColumns: string[] = ["track", "title", "length", "artist"];
 
-  constructor(
-    private subsonicService: SubsonicService,
-    public playerService: PlayerService,
-    private queueService: QueueService,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit(): void {
     if (!this.hideAlbum) {

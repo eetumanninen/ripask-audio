@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy, inject } from "@angular/core";
 import { SubsonicService } from "../subsonic/subsonic.service";
 import { Album } from "../subsonic/subsonic.model";
 
@@ -10,9 +10,14 @@ import { Album } from "../subsonic/subsonic.model";
     standalone: false
 })
 export class RecentsComponent implements OnInit {
+  private subsonicService = inject(SubsonicService);
+
   recents: Album[] = [];
 
-  constructor(private subsonicService: SubsonicService) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit(): void {
     this.subsonicService.getAlbumListBy("recent", 40).subscribe((res) => {

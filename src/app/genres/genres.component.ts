@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy, inject } from "@angular/core";
 import { SubsonicService } from "../subsonic/subsonic.service";
 import { Genre } from "../subsonic/subsonic.model";
 import { forkJoin } from "rxjs";
@@ -11,9 +11,14 @@ import { forkJoin } from "rxjs";
     standalone: false
 })
 export class GenresComponent implements OnInit {
+  private subsonicService = inject(SubsonicService);
+
   genres: Genre[] = [];
 
-  constructor(private subsonicService: SubsonicService) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit(): void {
     this.subsonicService.getGenres().subscribe((genres) => {

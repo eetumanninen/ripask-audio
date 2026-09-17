@@ -13,6 +13,8 @@
   display: block;
   max-width: 100%;
   height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
 }
 
 .artist-container > .img-responsive:only-child {

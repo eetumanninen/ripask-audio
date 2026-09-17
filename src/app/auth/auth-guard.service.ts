@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { GlobalsService } from "../globals.service";
 import { Observable } from "rxjs";
@@ -8,10 +8,13 @@ import { tap } from "rxjs/operators";
   providedIn: "root",
 })
 export class AuthGuardService  {
-  constructor(
-    private globals: GlobalsService,
-    private router: Router,
-  ) {}
+  private globals = inject(GlobalsService);
+  private router = inject(Router);
+
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   canActivate(): boolean | Observable<boolean> {
     if (this.globals.authenticated) {

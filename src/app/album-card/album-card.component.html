@@ -4,7 +4,7 @@
       <div class="album">
         <div [routerLink]="'/album/' + album.id" class="album-container">
           <img
-            [src]="album.coverArtUrl"
+            [ngSrc]="album.coverArtUrl"
             [title]="'Go to album: ' + album.name"
             alt=""
             class="img-responsive"

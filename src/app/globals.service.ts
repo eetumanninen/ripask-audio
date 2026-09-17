@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { toHex } from "./helpers";
 import { Observable, of } from "rxjs";
@@ -8,6 +8,8 @@ import { map, tap } from "rxjs/operators";
   providedIn: "root",
 })
 export class GlobalsService {
+  private http = inject(HttpClient);
+
   readonly autoAlbumSize = 500;
   readonly autoArtistSize = 500;
   readonly autoPlaylistSize = 100;
@@ -16,7 +18,10 @@ export class GlobalsService {
   private readonly _app = "ripask-audio";
   private readonly _version = "1.16.1";
 
-  constructor(private http: HttpClient) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     this._user = localStorage.getItem("user") || "";
     this._password = localStorage.getItem("password") || "";
     this._baseurl = localStorage.getItem("baseurl") || "";

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy, inject } from "@angular/core";
 import { GlobalsService } from "../globals.service";
 import { Router } from "@angular/router";
 
@@ -10,14 +10,17 @@ import { Router } from "@angular/router";
     standalone: false
 })
 export class AccountComponent implements OnInit {
+  private globals = inject(GlobalsService);
+  private router = inject(Router);
+
   username = "";
   password = "";
   server = "";
 
-  constructor(
-    private globals: GlobalsService,
-    private router: Router,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit(): void {
     this.username = this.globals.user;

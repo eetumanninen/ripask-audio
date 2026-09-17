@@ -5,34 +5,33 @@
         [title]="'Go to genre: ' + genre.value"
         [routerLink]="'/genre/' + genre.encodedValue"
         class="clickable"
-        >
+      >
         <div class="split">
           <div class="single-container">
             <img
-              [src]="genre.coverArtUrls[0]"
+              [ngSrc]="genre.coverArtUrls[0]"
               alt=""
               class="single-img"
               crossorigin="anonymous"
               height="300"
               loading="lazy"
               width="300"
-              />
+            />
           </div>
         </div>
         <div class="split">
           <div class="stacked-container">
-            @for (
-              coverArtUrl of genre.coverArtUrls.slice(1); track
-              coverArtUrl; let i = $index) {
+            @for (coverArtUrl of genre.coverArtUrls.slice(1); track
+              $index) {
               <img
-                [src]="coverArtUrl"
+                [ngSrc]="coverArtUrl"
                 alt=""
                 class="stacked-img"
                 crossorigin="anonymous"
                 height="300"
                 loading="lazy"
                 width="300"
-                />
+              />
             }
           </div>
         </div>
@@ -43,7 +42,7 @@
           (click)="playRandomByGenre(genre.value)"
           class="album-overlay clickable"
           style="bottom: 50px"
-          >
+        >
           <mat-icon [color]="'primary'" class="play-card">play_arrow</mat-icon>
         </div>
       }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy, inject } from "@angular/core";
 import { SubsonicService } from "../subsonic/subsonic.service";
 import { Album, Artist } from "../subsonic/subsonic.model";
 import { ActivatedRoute } from "@angular/router";
@@ -12,14 +12,17 @@ import { PlayerService } from "../player/player.service";
     standalone: false
 })
 export class ArtistComponent implements OnInit {
+  private subsonicService = inject(SubsonicService);
+  private playerService = inject(PlayerService);
+  private router = inject(ActivatedRoute);
+
   artist: Artist | undefined;
   albums: Album[] = [];
 
-  constructor(
-    private subsonicService: SubsonicService,
-    private playerService: PlayerService,
-    private router: ActivatedRoute,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit(): void {
     const id = this.router.snapshot.paramMap.get("id") as string;

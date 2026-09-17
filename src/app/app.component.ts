@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-  ChangeDetectionStrategy
-} from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy, inject } from "@angular/core";
 import { PlayerService } from "./player/player.service";
 import { GlobalsService } from "./globals.service";
 
@@ -17,13 +10,16 @@ import { GlobalsService } from "./globals.service";
     standalone: false
 })
 export class AppComponent implements OnInit, AfterViewInit {
+  private playerService = inject(PlayerService);
+  private globals = inject(GlobalsService);
+
   @ViewChild("player") player_elem: ElementRef | undefined;
   loaded = false;
 
-  constructor(
-    private playerService: PlayerService,
-    private globals: GlobalsService,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   get authenticated(): boolean {
     return this.globals.authenticated;
