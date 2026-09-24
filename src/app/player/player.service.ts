@@ -1,9 +1,9 @@
-import { Injectable, inject } from "@angular/core";
-import { SubsonicService } from "../subsonic/subsonic.service";
-import { QueueService } from "../queue/queue.service";
-import { Title } from "@angular/platform-browser";
-import { Song } from "../subsonic/subsonic.model";
-import { shuffleArr } from "../helpers";
+import {Injectable, inject, signal} from "@angular/core";
+import {SubsonicService} from "../subsonic/subsonic.service";
+import {QueueService} from "../queue/queue.service";
+import {Title} from "@angular/platform-browser";
+import {Song} from "../subsonic/subsonic.model";
+import {shuffleArr} from "../helpers";
 
 export enum Repeat {
   None = "0",
@@ -19,19 +19,15 @@ export class PlayerService {
   private queueService = inject(QueueService);
   private titleService = inject(Title);
 
-  currentSong: Song | null = null;
-  currentProgress = 0;
+  currentSong = signal<Song | null>(null);
+  currentProgress = signal(0);
+  playerPaused = signal(false);
   private _player!: HTMLAudioElement;
   private currentSongTimePlayed = 0;
   private previousPlayerTime = 0;
   private shuffle = false;
   private repeat = Repeat.None;
   private volume = 0.5;
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {}
 
   get playerVolume(): number {
     return this._player.volume;
@@ -40,10 +36,6 @@ export class PlayerService {
   set playerVolume(v: number) {
     this._player.volume = v;
     localStorage.setItem("volume", v.toString());
-  }
-
-  get paused(): boolean {
-    return this._player.paused;
   }
 
   setPlayer(p: HTMLAudioElement): void {
@@ -61,7 +53,7 @@ export class PlayerService {
     this.repeat = this.initRepeat();
     this._player.volume = this.volume;
     this._player.ontimeupdate = (): void => {
-      this.currentProgress = this._player.currentTime / this._player.duration;
+      this.currentProgress.set(this._player.currentTime / this._player.duration);
       if (this._player.currentTime > this.previousPlayerTime) {
         this.currentSongTimePlayed +=
           this._player.currentTime - this.previousPlayerTime;
@@ -80,7 +72,7 @@ export class PlayerService {
   nextSong = (): void => {
     const song =
       this.repeat === Repeat.One
-        ? this.currentSong
+        ? this.currentSong()
         : this.queueService.getNextSongFromQueue();
     if (song) {
       this.playSong(song);
@@ -107,10 +99,11 @@ export class PlayerService {
 
   playSong(song: Song): void {
     this.doScrobble();
-    this.currentSong = song;
+    this.currentSong.set(song);
     this.titleService.setTitle(`${song.title} - RipaskAudio`);
     this._player.src = song.songUrl;
     this._player.play().then();
+    this.playerPaused.set(false);
   }
 
   playSongInQueue(song: Song): void {
@@ -136,9 +129,11 @@ export class PlayerService {
 
   togglePaused(): void {
     if (this._player.paused) {
-      this._player.play()
+      this._player.play().then();
+      this.playerPaused.set(false);
     } else {
       this._player.pause();
+      this.playerPaused.set(true);
     }
   }
 
@@ -174,6 +169,7 @@ export class PlayerService {
     this.previousPlayerTime = this._player.currentTime;
     if (this._player.paused) {
       this._player.play().then();
+      this.playerPaused.set(false);
     }
   }
 
@@ -195,11 +191,12 @@ export class PlayerService {
   }
 
   private doScrobble(): void {
+    const unwrappedCurrentSong = this.currentSong();
     if (
-      this.currentSong &&
-      this.currentSongTimePlayed > this.currentSong.duration / 1.3
+      unwrappedCurrentSong &&
+      this.currentSongTimePlayed > unwrappedCurrentSong.duration / 1.3
     ) {
-      this.subsonicService.scrobble(this.currentSong).subscribe();
+      this.subsonicService.scrobble(unwrappedCurrentSong).subscribe();
     }
     this.currentSongTimePlayed = 0;
   }

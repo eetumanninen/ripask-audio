@@ -1,6 +1,6 @@
-import { Injectable, inject } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { forkJoin, Observable } from "rxjs";
+import {Injectable, inject} from "@angular/core";
+import {HttpClient} from "@angular/common/http";
+import {forkJoin, Observable} from "rxjs";
 import {
   Album,
   ApiAlbumSongs,
@@ -20,9 +20,9 @@ import {
   ArtistList,
   Song,
 } from "./subsonic.model";
-import { map, switchMap } from "rxjs/operators";
-import { GlobalsService } from "../globals.service";
-import { filterLimit, generateAvatar } from "../helpers";
+import {map, switchMap} from "rxjs/operators";
+import {GlobalsService} from "../globals.service";
+import {filterLimit, generateAvatar} from "../helpers";
 
 @Injectable({
   providedIn: "root",
@@ -30,11 +30,6 @@ import { filterLimit, generateAvatar } from "../helpers";
 export class SubsonicService {
   private http = inject(HttpClient);
   private globals = inject(GlobalsService);
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {}
 
   getAlbumListBy(type: string, size = 0, genre = ""): Observable<Album[]> {
     const url = this.globals.getUrl("getAlbumList2");
@@ -47,7 +42,7 @@ export class SubsonicService {
       params = params.append("genre", genre);
     }
     return this.http
-      .get<ApiGetAlbumListBy>(url, { params: params })
+      .get<ApiGetAlbumListBy>(url, {params: params})
       .pipe(
         map((v) =>
           v.albumList2.album.map((a) => new Album(a, this.getCoverArtUrl(a))),
@@ -60,7 +55,7 @@ export class SubsonicService {
     let params = this.globals.params.append("type", "alphabeticalByName");
     params = params.append("size", this.globals.autoArtistSize.toString());
     const artist = this.http
-      .get<ApiGetArtistList>(url, { params: params })
+      .get<ApiGetArtistList>(url, {params: params})
       .pipe(
         map((res) => {
           return res.artists.index.reduce(
@@ -85,7 +80,7 @@ export class SubsonicService {
   getArtist(id: string): Observable<Artist> {
     const url = this.globals.getUrl("getArtist");
     const params = this.globals.params.append("id", id);
-    return this.http.get<ApiGetArtist>(url, { params: params }).pipe(
+    return this.http.get<ApiGetArtist>(url, {params: params}).pipe(
       map(
         (v) =>
           new Artist(
@@ -108,7 +103,7 @@ export class SubsonicService {
       params = params.append("genre", genre.split("/")[0]);
     }
     return this.http
-      .get<ApiGetRandomSongs>(url, { params: params })
+      .get<ApiGetRandomSongs>(url, {params: params})
       .pipe(
         map((v) =>
           v.randomSongs.song.map(
@@ -121,7 +116,7 @@ export class SubsonicService {
   getGenres(): Observable<ApiGenre[]> {
     const url = this.globals.getUrl("getGenres");
     return this.http
-      .get<ApiGetGenres>(url, { params: this.globals.params })
+      .get<ApiGetGenres>(url, {params: this.globals.params})
       .pipe(map((v) => v.genres.genre));
   }
 
@@ -137,7 +132,7 @@ export class SubsonicService {
   getAlbum(id: string): Observable<ApiAlbumSongs> {
     const url = this.globals.getUrl("getAlbum");
     return this.http
-      .get<ApiGetAlbum>(url, { params: this.globals.params.append("id", id) })
+      .get<ApiGetAlbum>(url, {params: this.globals.params.append("id", id)})
       .pipe(map((v) => v.album));
   }
 
@@ -158,23 +153,23 @@ export class SubsonicService {
     const url = this.globals.getUrl("getMusicDirectory");
     const params = this.globals.params.append("id", id);
     return this.http
-      .get<ApiGetMusicDirectory<A>>(url, { params: params })
+      .get<ApiGetMusicDirectory<A>>(url, {params: params})
       .pipe(map((v) => v.directory));
   }
 
-  scrobble({ id }: { id: string }): Observable<void> {
+  scrobble({id}: { id: string }): Observable<void> {
     const url = this.globals.getUrl("scrobble");
     const params = this.globals.params.append("id", id);
-    return this.http.get<void>(url, { params: params });
+    return this.http.get<void>(url, {params: params});
   }
 
-  private getSongUrl({ id }: { id: string }): string {
+  private getSongUrl({id}: { id: string }): string {
     return id
       ? `${this.globals.getUrl("stream")}?${this.globals.params.append("id", id)}`
       : "";
   }
 
-  private getCoverArtUrl({ coverArt }: { coverArt: string }): string {
+  private getCoverArtUrl({coverArt}: { coverArt: string }): string {
     return coverArt
       ? `${this.globals.getUrl("getCoverArt")}?${this.globals.params.append("id", coverArt)}&size=300`
       : "";

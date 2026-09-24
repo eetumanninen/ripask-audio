@@ -1,5 +1,5 @@
 <div class="card mat-elevation-z4">
-  @if (artist; as artist) {
+  @if (artist(); as artist) {
     <div class="artist-box clickable">
       <div class="artist">
         <div [routerLink]="'/artist/' + artist.id" class="artist-container">

@@ -1,13 +1,29 @@
-import { Component, HostBinding, ViewEncapsulation, ChangeDetectionStrategy, inject } from "@angular/core";
-import { PlayerService, Repeat } from "./player.service";
+import {Component, HostBinding, ViewEncapsulation, inject} from "@angular/core";
+import {PlayerService, Repeat} from "./player.service";
+import {MatIconButton} from "@angular/material/button";
+import {MatIcon} from "@angular/material/icon";
+import {RouterLink} from "@angular/router";
+import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
+import {MatSlider, MatSliderThumb} from "@angular/material/slider";
+import {PlayerSliderComponent} from "./player-slider.component";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
-    selector: "app-player",
-    templateUrl: "./player.component.html",
-    styleUrls: ["./player.component.scss"],
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+  selector: "app-player",
+  templateUrl: "./player.component.html",
+  styleUrls: ["./player.component.scss"],
+  imports: [
+    MatIconButton,
+    MatIcon,
+    RouterLink,
+    MatMenu,
+    MatSlider,
+    MatSliderThumb,
+    MatMenuTrigger,
+    PlayerSliderComponent,
+    NgOptimizedImage
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 export class PlayerComponent {
   playerService = inject(PlayerService);
@@ -15,11 +31,6 @@ export class PlayerComponent {
   @HostBinding("class.player") player = true;
 
   Repeat = Repeat;
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {}
 
   get shuffle(): boolean {
     return this.playerService.getShuffle();
@@ -31,7 +42,7 @@ export class PlayerComponent {
 
   coverArtUrl(): string {
     return this.playerService.songLoaded()
-      ? this.playerService.currentSong?.coverArtUrl || ""
+      ? this.playerService.currentSong()?.coverArtUrl || ""
       : "";
   }
 
@@ -46,7 +57,7 @@ export class PlayerComponent {
   }
 
   getPlayIcon(): string {
-    return this.playerService.paused
+    return this.playerService.playerPaused()
       ? "play_circle_filled"
       : "pause_circle_filled";
   }

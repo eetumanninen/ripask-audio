@@ -1,8 +1,8 @@
-import { Injectable, inject } from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { toHex } from "./helpers";
-import { Observable, of } from "rxjs";
-import { map, tap } from "rxjs/operators";
+import {Injectable, inject} from "@angular/core";
+import {HttpClient, HttpParams} from "@angular/common/http";
+import {toHex} from "./helpers";
+import {Observable, of} from "rxjs";
+import {map, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -17,9 +17,6 @@ export class GlobalsService {
   private readonly _type = "json";
   private readonly _app = "ripask-audio";
   private readonly _version = "1.16.1";
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
 
   constructor() {
     this._user = localStorage.getItem("user") || "";
@@ -81,7 +78,7 @@ export class GlobalsService {
   ): Observable<boolean> {
     const params = this.createDefaultParams(user, password);
     return this.http
-      .get<{ status: string }>(this.getUrl("ping", baseurl), { params: params })
+      .get<{ status: string }>(this.getUrl("ping", baseurl), {params: params})
       .pipe(
         map((v) => v && v.status === "ok"),
         tap((v) => {

@@ -1,35 +1,33 @@
-import { Component, OnInit, ChangeDetectionStrategy, inject } from "@angular/core";
-import { SubsonicService } from "../subsonic/subsonic.service";
-import { Album } from "../subsonic/subsonic.model";
-import { ActivatedRoute } from "@angular/router";
+import {Component, OnInit, inject, signal} from "@angular/core";
+import {SubsonicService} from "../subsonic/subsonic.service";
+import {Album} from "../subsonic/subsonic.model";
+import {ActivatedRoute} from "@angular/router";
+import {AlbumListComponent} from "../album-list/album-list.component";
 
 @Component({
-    selector: "app-genre",
-    templateUrl: "./genre.component.html",
-    styleUrls: ["./genre.component.scss"],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+  selector: "app-genre",
+  templateUrl: "./genre.component.html",
+  imports: [
+    AlbumListComponent
+  ],
+  styleUrls: ["./genre.component.scss"]
 })
 export class GenreComponent implements OnInit {
   private subsonicService = inject(SubsonicService);
   private router = inject(ActivatedRoute);
 
-  albums: Album[] = [];
-  genre = "";
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {}
+  albums = signal<Album[]>([]);
+  genre = signal("");
 
   ngOnInit(): void {
-    this.genre = decodeURIComponent(
+    const id = decodeURIComponent(
       this.router.snapshot.paramMap.get("id") as string,
     );
+    this.genre.set(id)
     this.subsonicService
-      .getAlbumListBy("byGenre", 0, this.genre)
+      .getAlbumListBy("byGenre", 0, this.genre())
       .subscribe((res) => {
-        this.albums = res;
+        this.albums.set(res);
       });
   }
 }

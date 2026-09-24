@@ -2,27 +2,37 @@
   <div class="row">
     <div
       (click)="playSongs()"
-      [title]="'Play songs from album: ' + album?.name || ''"
+      [title]="'Play songs from album: ' + album()?.name || ''"
       class="col-12 col-sm-3 gx-sm-4 g-0 clickable album-img-container"
     >
-      <img
-        [ngSrc]="album?.coverArtUrl || ''"
-        alt=""
-        class="album-img"
-        crossorigin="anonymous"
-        height="300"
-        width="300"
-      />
+      @if (album()) {
+        <img
+          [ngSrc]="album()?.coverArtUrl || ''"
+          [alt]="'Cover art of album named ' + album()?.name"
+          class="album-img"
+          crossorigin="anonymous"
+          height="300"
+          width="300"
+          priority
+        />
+      } @else {
+        <img
+          alt="Cover art not yet loaded"
+          class="album-img"
+          height="300"
+          width="300"
+        />
+      }
     </div>
     <div class="col-12 col-sm-5 pl-4 pb-3">
-      <h3 class="album-title">{{ album?.name }}</h3>
+      <h3 class="album-title">{{ album()?.name }}</h3>
       <div class="album-info">
-        <div>{{ album?.artist }}</div>
-        <div>{{ album?.year }}</div>
-        <div>{{ duration }}</div>
-        <div>{{ songCount }} songs</div>
+        <div>{{ album()?.artist }}</div>
+        <div>{{ album()?.year }}</div>
+        <div>{{ duration() }}</div>
+        <div>{{ songCount() }} songs</div>
       </div>
     </div>
   </div>
-  <app-song-list [hideAlbum]="true" [songs]="songs"></app-song-list>
+  <app-song-list [hideAlbum]="true" [songs]="songs()"></app-song-list>
 </div>

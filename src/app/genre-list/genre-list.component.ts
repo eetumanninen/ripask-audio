@@ -1,13 +1,15 @@
-import { Component, Input, ChangeDetectionStrategy } from "@angular/core";
-import { Genre } from "../subsonic/subsonic.model";
+import {Component, input} from "@angular/core";
+import {Genre} from "../subsonic/subsonic.model";
+import {GenreCardComponent} from "../genre-card/genre-card.component";
 
 @Component({
-    selector: "app-genre-list",
-    templateUrl: "./genre-list.component.html",
-    styleUrls: ["./genre-list.component.scss"],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+  selector: "app-genre-list",
+  templateUrl: "./genre-list.component.html",
+  imports: [
+    GenreCardComponent
+  ],
+  styleUrls: ["./genre-list.component.scss"]
 })
 export class GenreListComponent {
-  @Input() genres: Genre[] = [];
+  genres = input<Genre[]>([]);
 }

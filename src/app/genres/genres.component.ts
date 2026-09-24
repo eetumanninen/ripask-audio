@@ -1,24 +1,21 @@
-import { Component, OnInit, ChangeDetectionStrategy, inject } from "@angular/core";
-import { SubsonicService } from "../subsonic/subsonic.service";
-import { Genre } from "../subsonic/subsonic.model";
-import { forkJoin } from "rxjs";
+import {Component, inject, OnInit, signal} from "@angular/core";
+import {SubsonicService} from "../subsonic/subsonic.service";
+import {Genre} from "../subsonic/subsonic.model";
+import {forkJoin} from "rxjs";
+import {GenreListComponent} from "../genre-list/genre-list.component";
 
 @Component({
-    selector: "app-genres",
-    templateUrl: "./genres.component.html",
-    styleUrls: ["./genres.component.scss"],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+  selector: "app-genres",
+  templateUrl: "./genres.component.html",
+  imports: [
+    GenreListComponent
+  ],
+  styleUrls: ["./genres.component.scss"]
 })
 export class GenresComponent implements OnInit {
   private subsonicService = inject(SubsonicService);
 
-  genres: Genre[] = [];
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {}
+  genres = signal<Genre[]>([]);
 
   ngOnInit(): void {
     this.subsonicService.getGenres().subscribe((genres) => {
@@ -33,7 +30,7 @@ export class GenresComponent implements OnInit {
             tempGenres.push(new Genre(genres[i], albums[i]));
           }
         }
-        this.genres = tempGenres.sort((a, b) => this.compare(a.value, b.value));
+        this.genres.set(tempGenres.sort((a, b) => this.compare(a.value, b.value)));
       });
     });
   }

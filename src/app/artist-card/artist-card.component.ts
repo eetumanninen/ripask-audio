@@ -1,23 +1,22 @@
-import { Component, Input, ChangeDetectionStrategy, inject } from "@angular/core";
-import { ArtistList } from "../subsonic/subsonic.model";
-import { PlayerService } from "../player/player.service";
+import {Component, Input, ChangeDetectionStrategy, inject, input} from "@angular/core";
+import {ArtistList} from "../subsonic/subsonic.model";
+import {PlayerService} from "../player/player.service";
+import {RouterLink} from "@angular/router";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
-    selector: "app-artist-card",
-    templateUrl: "./artist-card.component.html",
-    styleUrls: ["./artist-card.component.scss"],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+  selector: "app-artist-card",
+  templateUrl: "./artist-card.component.html",
+  imports: [
+    RouterLink,
+    MatIcon
+  ],
+  styleUrls: ["./artist-card.component.scss"]
 })
 export class ArtistCardComponent {
   private playerService = inject(PlayerService);
 
-  @Input() artist: ArtistList | null = null;
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {}
+  artist = input<ArtistList | null>(null);
 
   playArtist(artist: ArtistList): void {
     this.playerService.playArtist(artist.id);

@@ -1,5 +1,5 @@
 <div class="card mat-elevation-z4">
-  @if (genre; as genre) {
+  @if (genre(); as genre) {
     <div>
       <div
         [title]="'Go to genre: ' + genre.value"

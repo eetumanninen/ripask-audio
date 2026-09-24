@@ -1,44 +1,46 @@
 <div class="container">
-  <div class="row">
-    <div
-      [title]="'Play songs by artist: ' + artist?.name"
-      (click)="playArtist()"
-      class="col-12 col-sm-3 gx-sm-4 g-0 clickable artist-container"
+  @if (artist(); as artist) {
+    <div class="row">
+      <div
+        [title]="'Play songs by artist: ' + artist.name"
+        (click)="playArtist()"
+        class="col-12 col-sm-3 gx-sm-4 g-0 clickable artist-container"
       >
-      @if (artist?.coverArtUrls?.length === 1) {
-        <img
-          [src]="artist?.coverArtUrls![0]"
-          alt=""
-          class="artist-img-single"
-          crossorigin="anonymous"
-          height="300"
-          loading="lazy"
-          width="300"
+        @if (artist.coverArtUrls?.length === 1) {
+          <img
+            [src]="artist.coverArtUrls![0]"
+            alt=""
+            class="artist-img-single"
+            crossorigin="anonymous"
+            height="300"
+            loading="lazy"
+            width="300"
           />
-      } @else {
-        @for (coverArt of artist?.coverArtUrls; track coverArt) {
-          <div
-            class="artist-img-split-container"
+        } @else {
+          @for (coverArt of artist.coverArtUrls; track coverArt) {
+            <div
+              class="artist-img-split-container"
             >
-            <img
-              [src]="coverArt"
-              alt=""
-              class="artist-img-split"
-              crossorigin="anonymous"
-              height="300"
-              loading="lazy"
-              width="300"
+              <img
+                [src]="coverArt"
+                alt=""
+                class="artist-img-split"
+                crossorigin="anonymous"
+                height="300"
+                loading="lazy"
+                width="300"
               />
-          </div>
+            </div>
+          }
         }
-      }
-    </div>
-    <div class="col-12 col-sm-5 pl-4 pb-3">
-      <h3 class="artist-title">{{ artist?.name }}</h3>
-      <div class="artist-info">
-        <div>{{ artist?.albumCount }} albums</div>
+      </div>
+      <div class="col-12 col-sm-5 pl-4 pb-3">
+        <h3 class="artist-title">{{ artist.name }}</h3>
+        <div class="artist-info">
+          <div>{{ artist.albumCount }} albums</div>
+        </div>
       </div>
     </div>
-  </div>
-  <app-album-list [albums]="albums"></app-album-list>
+  }
+  <app-album-list [albums]="albums()"></app-album-list>
 </div>

@@ -1,25 +1,34 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy, inject } from "@angular/core";
-import { PlayerService } from "./player/player.service";
-import { GlobalsService } from "./globals.service";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  inject,
+  signal
+} from "@angular/core";
+import {PlayerService} from "./player/player.service";
+import {GlobalsService} from "./globals.service";
+import {NavbarComponent} from "./navbar/navbar.component";
+import {RouterOutlet} from "@angular/router";
+import {PlayerComponent} from "./player/player.component";
 
 @Component({
-    selector: "app-root",
-    templateUrl: "./app.component.html",
-    styleUrls: ["./app.component.scss"],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  imports: [
+    NavbarComponent,
+    RouterOutlet,
+    PlayerComponent
+  ],
+  styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit, AfterViewInit {
   private playerService = inject(PlayerService);
   private globals = inject(GlobalsService);
 
   @ViewChild("player") player_elem: ElementRef | undefined;
-  loaded = false;
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {}
+  loaded = signal(false);
 
   get authenticated(): boolean {
     return this.globals.authenticated;
@@ -30,7 +39,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.playerService.setPlayer(
         this.player_elem.nativeElement as HTMLAudioElement,
       );
-      setTimeout(() => (this.loaded = true));
+      setTimeout(() => (this.loaded.set(true)));
     }
   }
 

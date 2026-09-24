@@ -3,33 +3,43 @@
     <app-player-slider
       (sliderChange)="setCurrentTime($event)"
       [disabled]="!playerService.songLoaded()"
-      [value]="playerService.currentProgress"
+      [value]="playerService.currentProgress()"
       class="progress-slider"
     ></app-player-slider>
   </div>
   <div class="controls">
     <div class="controls-start">
       <div class="art">
-        <img
-          [src]="coverArtUrl()"
-          alt=""
-          crossorigin="anonymous"
-          height="60"
-          width="60"
+        @if (coverArtUrl()) {
+          <img
+            [ngSrc]="coverArtUrl()"
+            alt=""
+            crossorigin="anonymous"
+            height="60"
+            width="60"
+            priority
           />
+        } @else {
+          <img
+            alt=""
+            crossorigin="anonymous"
+            height="60"
+            width="60"
+          />
+        }
       </div>
       <div class="info">
         <div
-          [title]="playerService.currentSong?.title"
+          [title]="playerService.currentSong()?.title"
           class="title-player title"
-          >
-          {{ playerService.currentSong?.title }}
+        >
+          {{ playerService.currentSong()?.title }}
         </div>
         <div
-          [title]="playerService.currentSong?.artist"
+          [title]="playerService.currentSong()?.artist"
           class="artist-player title subtitle"
-          >
-          {{ playerService.currentSong?.artist }}
+        >
+          {{ playerService.currentSong()?.artist }}
         </div>
       </div>
     </div>
@@ -38,81 +48,83 @@
         title="Play random songs"
         (click)="playRandomSongs()"
         mat-icon-button
-        >
+      >
         <mat-icon>music_note</mat-icon>
       </button>
       <button
         title="Toggle shuffle"
         (click)="playerService.toggleShuffle()"
         mat-icon-button
-        >
+      >
         <mat-icon [class.highlight]="shuffle">shuffle</mat-icon>
       </button>
       <button
         title="Toggle repeat"
         (click)="playerService.toggleRepeat()"
         mat-icon-button
-        >
+      >
         @if (repeat === Repeat.One) {
           <mat-icon
             class="highlight"
-            >repeat_one</mat-icon
-            >
-          } @else {
-            <mat-icon [class.highlight]="repeat === Repeat.All">repeat</mat-icon>
-          }
-        </button>
-        <button
-          title="Previous song"
-          (click)="playerService.previousSong()"
-          [disabled]="!playerService.songLoaded()"
-          mat-icon-button
+          >repeat_one
+          </mat-icon
           >
-          <mat-icon>skip_previous</mat-icon>
-        </button>
-        <button
-          title="Toggle playing"
-          (click)="playerService.togglePaused()"
-          [disabled]="!playerService.songLoaded()"
-          class="p-0"
-          mat-icon-button
-          >
-          <mat-icon
-            [color]="'primary'"
-            class="primary-play-btn"
-            >{{ getPlayIcon() }}</mat-icon
-            >
-          </button>
-          <button
-            title="Next song"
-            (click)="playerService.nextSong()"
-            [disabled]="!playerService.songLoaded()"
-            mat-icon-button
-            >
-            <mat-icon>skip_next</mat-icon>
-          </button>
-          <button title="Adjust volume" [matMenuTriggerFor]="menu" mat-icon-button>
-            <mat-icon>{{ getVolumeIcon() }}</mat-icon>
-          </button>
-          <button title="Navigate to queue" [routerLink]="'/queue'" mat-icon-button>
-            <mat-icon>queue_music</mat-icon>
-          </button>
-          <button
-            title="Navigate to settings"
-            [routerLink]="'/account'"
-            mat-icon-button
-            >
-            <mat-icon>account_circle</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <mat-slider
-              [color]="'primary'"
-              [step]="0.05"
-              max="1"
-              min="0"
-              ><input matSliderThumb [value]="playerService.playerVolume" (valueChange)="onInputChange($event)"></mat-slider>
-            </mat-menu>
-          </div>
-          <div class="controls-end"></div>
-        </div>
-      </div>
+        } @else {
+          <mat-icon [class.highlight]="repeat === Repeat.All">repeat</mat-icon>
+        }
+      </button>
+      <button
+        title="Previous song"
+        (click)="playerService.previousSong()"
+        [disabled]="!playerService.songLoaded()"
+        mat-icon-button
+      >
+        <mat-icon>skip_previous</mat-icon>
+      </button>
+      <button
+        title="Toggle playing"
+        (click)="playerService.togglePaused()"
+        [disabled]="!playerService.songLoaded()"
+        class="p-0"
+        mat-icon-button
+      >
+        <mat-icon
+          [color]="'primary'"
+          class="primary-play-btn"
+        >{{ getPlayIcon() }}
+        </mat-icon
+        >
+      </button>
+      <button
+        title="Next song"
+        (click)="playerService.nextSong()"
+        [disabled]="!playerService.songLoaded()"
+        mat-icon-button
+      >
+        <mat-icon>skip_next</mat-icon>
+      </button>
+      <button title="Adjust volume" [matMenuTriggerFor]="menu" mat-icon-button>
+        <mat-icon>{{ getVolumeIcon() }}</mat-icon>
+      </button>
+      <button title="Navigate to queue" [routerLink]="'/queue'" mat-icon-button>
+        <mat-icon>queue_music</mat-icon>
+      </button>
+      <button
+        title="Navigate to settings"
+        [routerLink]="'/account'"
+        mat-icon-button
+      >
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <mat-slider
+          [color]="'primary'"
+          [step]="0.05"
+          max="1"
+          min="0"
+        ><input matSliderThumb [value]="playerService.playerVolume" (valueChange)="onInputChange($event)"></mat-slider>
+      </mat-menu>
+    </div>
+    <div class="controls-end"></div>
+  </div>
+</div>

@@ -1,27 +1,24 @@
-import { Component, OnInit, ChangeDetectionStrategy, inject } from "@angular/core";
-import { SubsonicService } from "../subsonic/subsonic.service";
-import { ArtistList } from "../subsonic/subsonic.model";
+import {Component, OnInit, inject, signal} from "@angular/core";
+import {SubsonicService} from "../subsonic/subsonic.service";
+import {ArtistList} from "../subsonic/subsonic.model";
+import {ArtistListComponent} from "../artist-list/artist-list.component";
 
 @Component({
-    selector: "app-artists",
-    templateUrl: "./artists.component.html",
-    styleUrls: ["./artists.component.scss"],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+  selector: "app-artists",
+  templateUrl: "./artists.component.html",
+  imports: [
+    ArtistListComponent
+  ],
+  styleUrls: ["./artists.component.scss"]
 })
 export class ArtistsComponent implements OnInit {
   private subsonicService = inject(SubsonicService);
 
-  artists: ArtistList[] = [];
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {}
+  artists = signal<ArtistList[]>([]);
 
   ngOnInit(): void {
     this.subsonicService
       .getArtistList()
-      .subscribe((res) => (this.artists = res));
+      .subscribe((res) => (this.artists.set(res)));
   }
 }

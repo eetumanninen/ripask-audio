@@ -1,5 +1,5 @@
 <div class="card mat-elevation-z4">
-  @if (album; as album) {
+  @if (album(); as album) {
     <div class="album-box clickable">
       <div class="album">
         <div [routerLink]="'/album/' + album.id" class="album-container">
@@ -12,13 +12,13 @@
             height="300"
             loading="lazy"
             width="300"
-            />
+          />
         </div>
         <div
           title="Play songs in album"
           (click)="playAlbum(album.id)"
           class="album-overlay clickable"
-          >
+        >
           <mat-icon [color]="'primary'" class="play-card">play_arrow</mat-icon>
         </div>
       </div>
@@ -29,7 +29,7 @@
         [routerLink]="'/artist/' + album.artistId"
         [title]="album.artist"
         class="title subtitle link"
-        >
+      >
         {{ album.artist }}
       </div>
     </div>
